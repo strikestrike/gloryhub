@@ -18,16 +18,4 @@ class DukeLevel extends Model
     ];
 
     public $timestamps = false;
-
-    // Query Scopes
-    public function scopeForBuilding($query, $buildingType)
-    {
-        return $query->select('level', $buildingType);
-    }
-
-    // Helper Methods
-    public static function getRequirements($level)
-    {
-        return static::firstWhere('level', $level);
-    }
 }

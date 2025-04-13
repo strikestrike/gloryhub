@@ -16,12 +16,9 @@ class GameData extends Model
         'stables_level',
         'barracks_level',
         'duke_badges',
-        'last_updated'
     ];
 
-    protected $casts = [
-        'last_updated' => 'date'
-    ];
+    protected $casts = [];
 
     // Relationships
     public function user()
@@ -38,7 +35,6 @@ class GameData extends Model
             'stables_level' => 'required|integer|between:45,50',
             'barracks_level' => 'required|integer|between:45,50',
             'duke_badges' => 'required|integer|min:0',
-            'last_updated' => 'required|date'
         ];
     }
 

@@ -2,23 +2,66 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreGameDataRequest;
+use App\Models\DukeLevel;
+use App\Models\GameData;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class GameDataController extends Controller
 {
-    public function store(Request $request)
+    public function edit()
     {
-        $validated = $request->validate([
-            'castle_level' => 'required|integer|between:45,50',
-            'range_level' => 'required|integer|between:45,50',
-            'stables_level' => 'required|integer|between:45,50',
-            'barracks_level' => 'required|integer|between:45,50',
-            'duke_badges' => 'required|integer|min:0'
+        $gameData = Auth::user()->gameData ?? new GameData();
+        $alliance = Auth::user()->alliance;
+
+        $dukeLevels = DukeLevel::all()->keyBy('level');
+
+        return view('game-data.edit', [
+            'gameData' => $gameData,
+            'alliance' => $alliance ? $alliance->name : null,
+            'maxLevel' => config('game.max_level'),
+            'minLevel' => config('game.min_level'),
+            'dukeLevels' => $dukeLevels,
         ]);
+    }
 
-        $request->user()->gameData()->updateOrCreate([], $validated);
+    public function store(StoreGameDataRequest $request)
+    {
+        RateLimiter::attempt(
+            'game-data-update:' . $request->ip(),
+            5,
+            function () {},
+            60
+        );
 
-        return redirect()->route('alliance.view');
+        $validated = $request->validated();
+
+        $allianceName = $validated['alliance'];
+        $alliance = \App\Models\Alliance::firstOrCreate(
+            ['name' => $allianceName],
+            ['kingdom_id' => 1] // TODO: get kingdom id
+        );
+
+        $user = $request->user();
+        $user->alliance_id = $alliance->id;
+        $user->save();
+
+        $this->updateGameData($request->user(), $validated);
+
+        return redirect()->route('/')
+            ->with('success', 'Game data updated successfully!');
+    }
+
+    private function updateGameData($user, array $validated): void
+    {
+        $user->gameData()->updateOrCreate(
+            ['user_id' => $user->id],
+            $validated
+        );
     }
 }

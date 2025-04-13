@@ -18,9 +18,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role', ['super_admin', 'king', 'player'])->default('player');
-            $table->string('alliance')->nullable();
-            $table->boolean('alliance_locked')->default(false);
-            $table->boolean('kingdom_id')->default(1);
+            $table->integer('alliance_id')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

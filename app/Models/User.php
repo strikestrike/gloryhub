@@ -2,29 +2,31 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'name',
         'email',
         'password',
         'role',
-        'alliance',
-        'alliance_locked',
-        'kingdom_id'
+        'alliance_id',
     ];
 
     protected $casts = [
-        'alliance_locked' => 'boolean',
         'email_verified_at' => 'datetime',
     ];
 
-    // Relationships
+    public function alliance()
+    {
+        return $this->belongsTo(Alliance::class);
+    }
+
     public function gameData()
     {
         return $this->hasOne(GameData::class);
@@ -37,7 +39,7 @@ class User extends Authenticatable
 
     public function awards()
     {
-        return $this->hasMany(AwardDistribution::class);
+        return $this->hasMany(AwardAssignment::class);
     }
 
     // Helper Methods
