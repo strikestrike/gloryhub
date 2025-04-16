@@ -15,12 +15,26 @@ class BuildingNeedService
     public function calculateTotalNeeded($gameData): int
     {
         $targetLevel = $gameData->target_level ?? config('game.max_level');
+        $building = $gameData->target_building;
 
-        $castle = $this->getBuildingLevelNeed('castle', $gameData->castle_level, $targetLevel);
-        $range = $this->getBuildingLevelNeed('range', $gameData->range_level, $targetLevel);
-        $stables = $this->getBuildingLevelNeed('stables', $gameData->stables_level, $targetLevel);
-        $barracks = $this->getBuildingLevelNeed('barracks', $gameData->barracks_level, $targetLevel);
+        $total = 0;
 
-        return max($castle + $range + $stables + $barracks - $gameData->duke_badges, 0);
+        if ($building === 'castle' || $building === 'overall') {
+            $total += $this->getBuildingLevelNeed('castle', $gameData->castle_level, $targetLevel);
+        }
+
+        if ($building === 'range' || $building === 'overall') {
+            $total += $this->getBuildingLevelNeed('range', $gameData->range_level, $targetLevel);
+        }
+
+        if ($building === 'stables' || $building === 'overall') {
+            $total += $this->getBuildingLevelNeed('stables', $gameData->stables_level, $targetLevel);
+        }
+
+        if ($building === 'barracks' || $building === 'overall') {
+            $total += $this->getBuildingLevelNeed('barracks', $gameData->barracks_level, $targetLevel);
+        }
+
+        return max($total - $gameData->duke_badges, 0);
     }
 }
