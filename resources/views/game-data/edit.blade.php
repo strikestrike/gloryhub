@@ -33,8 +33,8 @@
                                 id="alliance"
                                 name="alliance"
                                 class="form-control {{ $errors->has('alliance') ? 'is-invalid' : '' }}"
-                                value="{{ old('alliance', $gameData->alliance ?? '') }}"
-                                {{ ($gameData->alliance ?? null) ? 'readonly' : 'required' }}>
+                                value="{{ old('alliance', $alliance ?? '') }}"
+                                {{ ($alliance) ? 'readonly' : 'required' }}>
                             @if($errors->has('alliance'))
                             <span class="text-danger">{{ $errors->first('alliance') }}</span>
                             @endif
@@ -79,6 +79,47 @@
                             @if($errors->has('duke_badges'))
                             <span class="text-danger">{{ $errors->first('duke_badges') }}</span>
                             @endif
+                        </div>
+
+                        <div class="row">
+                            {{-- Target Building --}}
+                            <div class="form-group col-md-6">
+                                <label for="target_building">Target Building</label>
+                                <select
+                                    id="target_building"
+                                    name="target_building"
+                                    class="form-control {{ $errors->has('target_building') ? 'is-invalid' : '' }}"
+                                    required>
+                                    @foreach(array_merge(['overall' => 'Overall'], config('game.buildings')) as $key => $label)
+                                    <option value="{{ $key }}"
+                                        {{ old('target_building', $gameData->target_building ?? '') == $key ? 'selected' : '' }}>
+                                        {{ $label }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @if($errors->has('target_building'))
+                                <span class="text-danger">{{ $errors->first('target_building') }}</span>
+                                @endif
+                            </div>
+                            {{-- Target Level --}}
+                            <div class="form-group col-md-6">
+                                <label for="target_level">Target Level</label>
+                                <select
+                                    id="target_level"
+                                    name="target_level"
+                                    class="form-control {{ $errors->has('target_level') ? 'is-invalid' : '' }}"
+                                    required>
+                                    @foreach(config('game.building_levels') as $level)
+                                    <option value="{{ $level }}"
+                                        {{ old('target_level', $gameData->target_level ?? '') == $level ? 'selected' : '' }}>
+                                        Lv. {{ $level }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @if($errors->has('target_level'))
+                                <span class="text-danger">{{ $errors->first('target_level') }}</span>
+                                @endif
+                            </div>
                         </div>
 
                         {{-- Submit --}}

@@ -56,6 +56,7 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'game-data-check' => \App\Http\Middleware\GameDataMiddleware::class,
         'king' => \App\Http\Middleware\KingMiddleware::class,
+        'superAdmin' => \App\Http\Middleware\SuperAdminMiddleware::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

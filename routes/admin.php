@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AllianceController;
 use App\Http\Controllers\DistributionController;
 use App\Http\Controllers\GameDataController;
@@ -25,13 +26,20 @@ Route::middleware(['auth', 'game-data-check'])->group(function () {
     Route::get('/alliance-data', [AllianceController::class, 'getUpdatedMembers'])->name('alliance.data');
     Route::get('/master-list', [MasterListController::class, 'show'])->name('master-list');
     Route::get('/masterlist-data', [MasterListController::class, 'getSoretedUsers'])->name('masterlist.data');
+    Route::get('/distribution', [DistributionController::class, 'show'])->name('distribution');
+    Route::get('/distribution-data', [DistributionController::class, 'getDistributionData'])->name('distribution.data');
 
     Route::middleware('king')->group(function () {
-        Route::get('/distribution', [DistributionController::class, 'show'])->name('distribution');
-        Route::get('/distribution-data', [DistributionController::class, 'getDistributionData'])->name('distribution.data');
         Route::post('/distribution-save', [DistributionController::class, 'saveDistribution'])->name('distribution.save');
         Route::post('/distribution-save-assignment', [DistributionController::class, 'saveAssignment'])->name('distribution.save.assignment');
         Route::post('/distribution/reset-all', [DistributionController::class, 'resetAllAssignments'])->name('distribution.reset.all');
         Route::post('/distribution/save-assignments', [DistributionController::class, 'saveBulkAssignments'])->name('distribution.save.assignment.bulk');
     });
+});
+
+Route::middleware(['auth', 'superAdmin'])->group(function () {
+    Route::get('/users', [AdminUserController::class, 'index'])->name('users');
+    Route::get('/users/data', [AdminUserController::class, 'getData'])->name('users.data');
+    Route::post('/users/{id}/reset-password', [AdminUserController::class, 'resetPassword'])->name('users.reset-password');
+    Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('users.delete');
 });

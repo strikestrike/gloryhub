@@ -16,6 +16,8 @@ class GameData extends Model
         'stables_level',
         'barracks_level',
         'duke_badges',
+        'target_level',
+        'target_building',
     ];
 
     protected $casts = [];
@@ -35,13 +37,8 @@ class GameData extends Model
             'stables_level' => 'required|integer|between:45,50',
             'barracks_level' => 'required|integer|between:45,50',
             'duke_badges' => 'required|integer|min:0',
+            'target_level' => 'required|integer|between:46,50',
+            'target_building' => 'required|string|in:' . implode(',', array_merge(array_keys(config('game.buildings')), ['overall'])),
         ];
-    }
-
-    // Business Logic
-    public function calculateDukesNeeded()
-    {
-        $calculator = app(\App\Services\DukeCalculator::class);
-        return $calculator->totalDukesNeeded($this->user);
     }
 }

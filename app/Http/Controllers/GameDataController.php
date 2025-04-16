@@ -41,17 +41,24 @@ class GameDataController extends Controller
 
         $validated = $request->validated();
 
-        $allianceName = $validated['alliance'];
-        $alliance = \App\Models\Alliance::firstOrCreate(
-            ['name' => $allianceName],
-            ['kingdom_id' => 1] // TODO: get kingdom id
-        );
-
         $user = $request->user();
-        $user->alliance_id = $alliance->id;
-        $user->save();
 
-        $this->updateGameData($request->user(), $validated);
+        // Check if the alliance is already set
+        if ($user->alliance) {
+            // Prevent updating the alliance if already set
+            unset($validated['alliance']);
+        } else {
+            $allianceName = $validated['alliance'];
+            $alliance = \App\Models\Alliance::firstOrCreate(
+                ['name' => $allianceName],
+                ['kingdom_id' => 1] // TODO: get kingdom id
+            );
+
+            $user->alliance_id = $alliance->id;
+            $user->save();
+        }
+
+        $this->updateGameData($user, $validated);
 
         return redirect()->route('/')
             ->with('success', 'Game data updated successfully!');

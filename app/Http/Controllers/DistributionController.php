@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AwardAssignment;
 use App\Models\GameData;
+use App\Services\BuildingNeedService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -15,7 +16,7 @@ class DistributionController extends Controller
         return view('distribution.index');
     }
 
-    public function getDistributionData(Request $request)
+    public function getDistributionData(Request $request, BuildingNeedService $buildingNeedService)
     {
         $level = (int) $request->input('kingdomLevel', 1);
         $awards = config('game.kingdom_awards')[$level] ?? [];
@@ -27,34 +28,17 @@ class DistributionController extends Controller
             return redirect()->route('login');
         }
 
-        if ($user->isSuperAdmin()) {
-            $members = GameData::with('user:id,name')
-                ->get()
-                ->map(function ($member) {
-                    return [
-                        'user_id' => $member->user_id,
-                        'name' => $member->user->name,
-                        'total_needed' => $this->calculateDukesNeeded($member),
-                    ];
-                })
-                ->sortBy('total_needed')
-                ->values()
-                ->all();
-        } else {
-            $members = GameData::whereIn('user_id', $user->alliance->members->pluck('id'))
-                ->with('user:id,name')
-                ->get()
-                ->map(function ($member) {
-                    return [
-                        'user_id' => $member->user_id,
-                        'name' => $member->user->name,
-                        'total_needed' => $this->calculateDukesNeeded($member),
-                    ];
-                })
-                ->sortBy('total_needed')
-                ->values()
-                ->all();
-        }
+        $query = $user->isSuperAdmin()
+            ? GameData::with('user:id,name')
+            : GameData::whereIn('user_id', $user->alliance->members->pluck('id'))->with('user:id,name');
+
+        $members = $query->get()->map(function ($member) use ($buildingNeedService) {
+            return [
+                'user_id' => $member->user_id,
+                'name' => $member->user->name,
+                'total_needed' => $buildingNeedService->calculateTotalNeeded($member),
+            ];
+        })->sortBy('total_needed')->values()->all();
 
         $existingAssignments = AwardAssignment::where('kingdom_level', $level)->get();
 
@@ -91,7 +75,7 @@ class DistributionController extends Controller
                 $awardDistribution[] = [
                     'award_type' => ucfirst($typeLower),
                     'type' => $typeLower,
-                    'user_id' => $assigned ? $assigned->user_id : $defaultUserId,
+                    'user_id' => $assigned ? $assigned->user_id : (($user->isSuperAdmin() || $user->isKing()) ? $defaultUserId : null),
                     'position' => $position,
                 ];
             }
@@ -103,7 +87,6 @@ class DistributionController extends Controller
             'has_saved' => $existingAssignments->isNotEmpty(),
         ]);
     }
-
 
     public function saveAssignment(Request $request)
     {
@@ -167,7 +150,6 @@ class DistributionController extends Controller
         return response()->json(['success' => true]);
     }
 
-
     public function resetAllAssignments(Request $request)
     {
         $validated = $request->validate([
@@ -177,26 +159,5 @@ class DistributionController extends Controller
         AwardAssignment::where('kingdom_level', $validated['kingdom_level'])->delete();
 
         return response()->json(['success' => true]);
-    }
-
-    private function calculateDukesNeeded($member)
-    {
-        $targetLevel = config('game.max_level');
-
-        $castleNeeded = $this->getBuildingLevelNeed('castle', $member->castle_level, $targetLevel);
-        $rangeNeeded = $this->getBuildingLevelNeed('range', $member->range_level, $targetLevel);
-        $stablesNeeded = $this->getBuildingLevelNeed('stables', $member->stables_level, $targetLevel);
-        $barracksNeeded = $this->getBuildingLevelNeed('barracks', $member->barracks_level, $targetLevel);
-
-        return max(
-            $castleNeeded + $rangeNeeded + $stablesNeeded + $barracksNeeded - $member->duke_badges,
-            0
-        );
-    }
-
-    private function getBuildingLevelNeed($buildingType, $currentLevel, $targetLevel)
-    {
-        return \App\Models\DukeLevel::whereBetween('level', [$currentLevel + 1, $targetLevel])
-            ->sum($buildingType);
     }
 }

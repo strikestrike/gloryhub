@@ -11,12 +11,14 @@
                 <option value="{{ $level }}">Level {{ $level }}</option>
                 @endforeach
             </select>
+            @if(auth()->user()->isSuperAdmin() || auth()->user()->isKing())
             <button type="button" class="btn btn-danger ml-3" id="reset-all-btn">
                 Reset Assignments
             </button>
             <button type="button" class="btn btn-success ml-3" id="saveDistributionBtn">
                 Save
             </button>
+            @endif
         </div>
 
         <div class="card-body">
@@ -47,7 +49,7 @@
             <tr class="award-row" data-type="${row.type}" data-position="${row.position}">
                 <td>${row.award_type} #${row.position + 1}</td>
                 <td>
-                    <select class="form-control award-select">
+                    <select class="form-control award-select" {{ !(auth()->user()->isSuperAdmin() || auth()->user()->isKing()) ? 'disabled' : '' }}>
                         <option value="">-- Select Player --</option>
                         ${options}
                     </select>

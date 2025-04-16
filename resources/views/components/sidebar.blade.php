@@ -34,5 +34,15 @@
                 </p>
             </a>
         </li>
+        @if(auth()->user()->isSuperAdmin())
+        <li class="nav-item">
+            <a href="{{ route('users') }}" class="nav-link {{ Route::is('users') ? 'active' : '' }}">
+                <i class="nav-icon fas fa fa-gift"></i>
+                <p>
+                    User List
+                </p>
+            </a>
+        </li>
+        @endif
     </ul>
 </nav>

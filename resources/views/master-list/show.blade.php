@@ -34,12 +34,12 @@
                         name: 'name'
                     },
                     {
-                        data: 'castle_level',
-                        name: 'castle_level'
+                        data: 'overall_level',
+                        name: 'overall_level'
                     },
                     {
-                        data: 'duke_needed',
-                        name: 'duke_needed'
+                        data: 'total_needed',
+                        name: 'total_needed'
                     },
                 ],
                 order: [

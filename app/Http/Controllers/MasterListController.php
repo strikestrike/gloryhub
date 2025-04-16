@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DukeLevel;
 use App\Models\GameData;
+use App\Services\BuildingNeedService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -15,10 +16,8 @@ class MasterListController extends Controller
         return view('master-list.show');
     }
 
-    public function getSoretedUsers(Request $request)
+    public function getSoretedUsers(BuildingNeedService $buildingNeedService)
     {
-        $targetLevel = 50;
-
         $user = Auth::user();
 
         if (!$user instanceof \App\Models\User) {
@@ -34,6 +33,8 @@ class MasterListController extends Controller
                 'stables_level',
                 'barracks_level',
                 'duke_badges',
+                'target_building',
+                'target_level',
                 'updated_at',
             ])
                 ->with('user:id,name');
@@ -46,6 +47,8 @@ class MasterListController extends Controller
                     'stables_level',
                     'barracks_level',
                     'duke_badges',
+                    'target_building',
+                    'target_level',
                     'updated_at',
                 ])
                 ->with('user:id,name');
@@ -53,7 +56,7 @@ class MasterListController extends Controller
 
         return DataTables::of($query)
             ->addColumn('name', fn($member) => $member->user->name)
-            ->addColumn('castle_level', function ($member) {
+            ->addColumn('overall_level', function ($member) {
                 return min([
                     $member->castle_level,
                     $member->range_level,
@@ -61,30 +64,12 @@ class MasterListController extends Controller
                     $member->barracks_level,
                 ]);
             })
-            ->addColumn('duke_needed', function ($member) use ($targetLevel) {
-                $castle_needed = $this->getBuildingLevelNeed('castle', $member->castle_level, $targetLevel);
-                $stables_needed = $this->getBuildingLevelNeed('stables', $member->stables_level, $targetLevel);
-                $barracks_needed = $this->getBuildingLevelNeed('barracks', $member->barracks_level, $targetLevel);
-                $range_needed = $this->getBuildingLevelNeed('range', $member->range_level, $targetLevel);
-
-                return max(
-                    $castle_needed + $stables_needed + $barracks_needed + $range_needed - $member->duke_badges,
-                    0
-                );
-            })
+            ->addColumn('name', fn($member) => $member->user->name)
+            ->addColumn('castle_needed', fn($m) => $m->target_building !== 'castle' ? 0 : $buildingNeedService->getBuildingLevelNeed('castle', $m->castle_level, $m->target_level))
+            ->addColumn('stables_needed', fn($m) => $m->target_building !== 'stables' ? 0 : $buildingNeedService->getBuildingLevelNeed('stables', $m->stables_level, $m->target_level))
+            ->addColumn('barracks_needed', fn($m) => $m->target_building !== 'barracks' ? 0 : $buildingNeedService->getBuildingLevelNeed('barracks', $m->barracks_level, $m->target_level))
+            ->addColumn('range_needed', fn($m) => $m->target_building !== 'range' ? 0 : $buildingNeedService->getBuildingLevelNeed('range', $m->range_level, $m->target_level))
+            ->addColumn('total_needed', fn($m) => $buildingNeedService->calculateTotalNeeded($m, $m->target_level))
             ->make(true);
-    }
-
-    private function getBuildingLevelNeed($buildingType, $currentLevel, $targetLevel)
-    {
-        $needs = 0;
-
-        $levels = DukeLevel::whereBetween('level', [$currentLevel + 1, $targetLevel])->get();
-
-        foreach ($levels as $level) {
-            $needs += $level->{$buildingType};
-        }
-
-        return max($needs, 0);
     }
 }
