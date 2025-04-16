@@ -15,6 +15,15 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css') }}">
+    <style>
+        body.login-page {
+            background-image: url('/images/background.jpg');
+            /* adjust path as needed */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 
 <body class="hold-transition login-page">
