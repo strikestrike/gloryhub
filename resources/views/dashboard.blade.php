@@ -5,10 +5,16 @@
 
     <div class="row">
         <div class="col-lg-12 col-12 my-2">
-            <button type="button" class="btn btn-default float-right" id="daterange-btn">
-                <i class="far fa-calendar-alt"></i> <span></span>
-                <i class="fas fa-caret-down"></i>
-            </button>
+            <div class="d-flex justify-content-center align-items-center mb-3">
+                <h2>
+                    {{ config('app.name') }}
+                    @if(auth()->user()->isSuperAdmin())
+                    <button class="btn btn-sm btn-outline-secondary ml-2" data-toggle="modal" data-target="#editAppNameModal">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    @endif
+                </h2>
+            </div>
         </div>
     </div>
 
@@ -43,6 +49,33 @@
             </div>
         </div>
     </div>
+
+    @if(auth()->user()->isSuperAdmin())
+    <!-- Modal -->
+    <div class="modal fade" id="editAppNameModal" tabindex="-1" aria-labelledby="editAppNameModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form method="POST" action="{{ route('app-name.update') }}">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editAppNameModalLabel">Edit App Name</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" name="app_name" class="form-control" value="{{ config('app.name') }}" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endif
+
 
     @section('page_scripts')
     <script>

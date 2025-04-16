@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\AwardAssignment;
 use App\Models\User;
+use App\Models\Setting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,5 +76,16 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function updateAppName(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'app_name' => ['required', 'string', 'max:100'],
+        ]);
+
+        Setting::setValue('app_name', $request->input('app_name'));
+
+        return back()->with('status', 'app-name-updated');
     }
 }

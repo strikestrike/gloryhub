@@ -22,7 +22,7 @@ class GameDataMiddleware
             return redirect()->route('login');
         }
 
-        if (!$user->gameData) {
+        if (!$user->isSuperAdmin() && !$user->gameData) {
             return redirect()->route('game-data.edit');
         }
         return $next($request);
