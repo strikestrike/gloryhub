@@ -18,7 +18,7 @@ class AdminUserController extends Controller
 
     public function getData(Request $request)
     {
-        $query = User::with('alliance:id,name')->select(['id', 'name', 'email', 'role', 'created_at', 'alliance_id']);
+        $query = User::with('alliance:id,name')->select(['id', 'name', 'email', 'role', 'created_at', 'alliance_id'])->whereIn('role', ['player', 'king']);
 
         return DataTables::of($query)
             ->addColumn('alliance', fn($user) => $user->alliance->name ?? '—')
