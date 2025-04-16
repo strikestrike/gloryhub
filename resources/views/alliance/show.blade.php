@@ -50,6 +50,8 @@
     <script type="text/javascript">
         $(function() {
             let dtOverrideGlobals = {
+                responsive: true,
+                scrollX: true,
                 processing: true,
                 serverSide: true,
                 retrieve: true,

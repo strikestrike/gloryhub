@@ -27,6 +27,8 @@
     <script type="text/javascript">
         $(function() {
             let dtUsers = $('.datatable-users').DataTable({
+                responsive: true,
+                scrollX: true,
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('users.data') }}",
