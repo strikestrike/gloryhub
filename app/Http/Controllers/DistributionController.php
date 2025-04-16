@@ -20,19 +20,41 @@ class DistributionController extends Controller
         $level = (int) $request->input('kingdomLevel', 1);
         $awards = config('game.kingdom_awards')[$level] ?? [];
 
-        $members = GameData::whereIn('user_id', auth()->user()->alliance->members->pluck('id'))
-            ->with('user:id,name')
-            ->get()
-            ->map(function ($member) {
-                return [
-                    'user_id' => $member->user_id,
-                    'name' => $member->user->name,
-                    'total_needed' => $this->calculateDukesNeeded($member),
-                ];
-            })
-            ->sortBy('total_needed')
-            ->values()
-            ->all();
+        $user = Auth::user();
+
+        if (!$user instanceof \App\Models\User) {
+            Auth::logout();
+            return redirect()->route('login');
+        }
+
+        if ($user->isSuperAdmin()) {
+            $members = GameData::with('user:id,name')
+                ->get()
+                ->map(function ($member) {
+                    return [
+                        'user_id' => $member->user_id,
+                        'name' => $member->user->name,
+                        'total_needed' => $this->calculateDukesNeeded($member),
+                    ];
+                })
+                ->sortBy('total_needed')
+                ->values()
+                ->all();
+        } else {
+            $members = GameData::whereIn('user_id', $user->alliance->members->pluck('id'))
+                ->with('user:id,name')
+                ->get()
+                ->map(function ($member) {
+                    return [
+                        'user_id' => $member->user_id,
+                        'name' => $member->user->name,
+                        'total_needed' => $this->calculateDukesNeeded($member),
+                    ];
+                })
+                ->sortBy('total_needed')
+                ->values()
+                ->all();
+        }
 
         $existingAssignments = AwardAssignment::where('kingdom_level', $level)->get();
 

@@ -20,8 +20,15 @@ class AllianceController extends Controller
         $targetLevel = $request->input('targetLevel');
         $buildingType = $request->input('buildingType');
 
-        $query = GameData::whereIn('user_id', auth()->user()->alliance->members->pluck('id'))
-            ->select([
+        $user = Auth::user();
+
+        if (!$user instanceof \App\Models\User) {
+            Auth::logout();
+            return redirect()->route('login');
+        }
+
+        if ($user->isSuperAdmin()) {
+            $query = GameData::select([
                 'user_id',
                 'castle_level',
                 'range_level',
@@ -29,8 +36,20 @@ class AllianceController extends Controller
                 'barracks_level',
                 'duke_badges',
                 'updated_at',
-            ])
-            ->with('user:id,name');
+            ])->with('user:id,name');
+        } else {
+            $query = GameData::whereIn('user_id', $user->alliance->members->pluck('id'))
+                ->select([
+                    'user_id',
+                    'castle_level',
+                    'range_level',
+                    'stables_level',
+                    'barracks_level',
+                    'duke_badges',
+                    'updated_at',
+                ])
+                ->with('user:id,name');
+        }
 
         return DataTables::of($query)
             ->addColumn('name', fn($member) => $member->user->name)
