@@ -31,7 +31,7 @@
             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="image mr-2">
-                    <img src="{{ asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                    <img src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
                         alt="User Image" width="30" height="30">
                 </div>
                 <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
