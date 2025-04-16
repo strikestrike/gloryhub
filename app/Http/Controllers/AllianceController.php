@@ -53,13 +53,16 @@ class AllianceController extends Controller
                 ->with('user:id,name');
         }
 
-        return DataTables::of($query)
+        $dataTable = DataTables::of($query)
             ->addColumn('name', fn($member) => $member->user->name)
             ->addColumn('castle_needed', fn($m) => $m->target_building !== 'castle' ? 0 : $buildingNeedService->getBuildingLevelNeed('castle', $m->castle_level, $m->target_level))
             ->addColumn('stables_needed', fn($m) => $m->target_building !== 'stables' ? 0 : $buildingNeedService->getBuildingLevelNeed('stables', $m->stables_level, $m->target_level))
             ->addColumn('barracks_needed', fn($m) => $m->target_building !== 'barracks' ? 0 : $buildingNeedService->getBuildingLevelNeed('barracks', $m->barracks_level, $m->target_level))
             ->addColumn('range_needed', fn($m) => $m->target_building !== 'range' ? 0 : $buildingNeedService->getBuildingLevelNeed('range', $m->range_level, $m->target_level))
-            ->addColumn('total_needed', fn($m) => $buildingNeedService->calculateTotalNeeded($m))
-            ->make(true);
+            ->addColumn('total_needed', fn($m) => $buildingNeedService->calculateTotalNeeded($m));
+
+        $customSortMap = [];
+
+        return $this->applyCustomSorting(request(), $dataTable, $customSortMap)->make(true);
     }
 }

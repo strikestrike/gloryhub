@@ -117,7 +117,8 @@
                     },
                     {
                         data: 'total_needed',
-                        name: 'total_needed'
+                        name: 'total_needed',
+                        orderable: false,
                     },
                 ],
                 order: [

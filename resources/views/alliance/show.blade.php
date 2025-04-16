@@ -4,7 +4,7 @@
     @endsection
 
     <div class="card">
-        <div class="card-header d-flex align-items-center">
+        <!-- <div class="card-header d-flex align-items-center">
             <span class="mr-3">Target Level</span>
             <select id="targetLevel" class="form-control col-2">
                 @for($i = config('game.min_level'); $i <= config('game.max_level'); $i++)
@@ -18,7 +18,7 @@
                 <option value="{{ $key }}">{{ $label }}</option>
                 @endforeach
             </select>
-        </div>
+        </div> -->
 
         <div class="card-body">
             <table class="table table-striped datatable-alliance" width="100%">
@@ -30,8 +30,10 @@
                         <th>STABLES</th>
                         <th>BARRACKS</th>
                         <th>DUKE BADGES</th>
+                        <th>TARGET BUILDING</th>
+                        <th>TARGET LEVEL</th>
                         <th>Date updated</th>
-                        <th>Dukes-Castle level goal</th>
+                        <th>Dukes-Castle needed</th>
                         <th>Dukes-Stables needed</th>
                         <th>Dukes-Barracks needed</th>
                         <th>Dukes-Range needed</th>
@@ -83,6 +85,14 @@
                         name: 'duke_badges'
                     },
                     {
+                        data: 'target_building',
+                        name: 'target_building'
+                    },
+                    {
+                        data: 'target_level',
+                        name: 'target_level'
+                    },
+                    {
                         data: 'updated_at',
                         name: 'updated_at',
                         render: function(data, type, row) {
@@ -91,23 +101,28 @@
                     },
                     {
                         data: 'castle_needed',
-                        name: 'castle_needed'
+                        name: 'castle_needed',
+                        orderable: false,
                     },
                     {
                         data: 'stables_needed',
-                        name: 'stables_needed'
+                        name: 'stables_needed',
+                        orderable: false,
                     },
                     {
                         data: 'barracks_needed',
-                        name: 'barracks_needed'
+                        name: 'barracks_needed',
+                        orderable: false,
                     },
                     {
                         data: 'range_needed',
-                        name: 'range_needed'
+                        name: 'range_needed',
+                        orderable: false,
                     },
                     {
                         data: 'total_needed',
-                        name: 'total_needed'
+                        name: 'total_needed',
+                        orderable: false,
                     }
                 ],
                 order: [

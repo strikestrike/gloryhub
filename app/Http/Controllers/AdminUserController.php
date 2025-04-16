@@ -20,9 +20,12 @@ class AdminUserController extends Controller
     {
         $query = User::with('alliance:id,name')->select(['id', 'name', 'email', 'role', 'created_at', 'alliance_id'])->whereIn('role', ['player', 'king']);
 
-        return DataTables::of($query)
-            ->addColumn('alliance', fn($user) => $user->alliance->name ?? '—')
-            ->make(true);
+        $dataTable = DataTables::of($query)
+            ->addColumn('alliance', fn($user) => $user->alliance->name ?? '—');
+
+        $customSortMap = [];
+
+        return $this->applyCustomSorting($request, $dataTable, $customSortMap)->make(true);
     }
 
     public function resetPassword($id)

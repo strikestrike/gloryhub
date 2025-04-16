@@ -44,7 +44,8 @@
                     },
                     {
                         data: 'alliance',
-                        name: 'alliance'
+                        name: 'alliance',
+                        orderable: false,
                     },
                     {
                         data: 'created_at',
@@ -67,7 +68,7 @@
                     }
                 ],
                 order: [
-                    [3, 'desc']
+                    [4, 'desc']
                 ]
             });
 
