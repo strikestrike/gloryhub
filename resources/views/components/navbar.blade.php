@@ -1,11 +1,23 @@
+<style>
+    .dropdown-menu:hover {
+        display: block;
+    }
+
+    .navbar-nav .dropdown-menu {
+        transition: all 0.2s ease-in-out;
+    }
+
+    .navbar-nav .dropdown-menu .dropdown-item:hover {
+        background-color: #f4f4f4;
+        color: #007bff;
+    }
+</style>
+
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('profile.edit') }}" class="nav-link link-primary">Profile</a>
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">
@@ -14,20 +26,31 @@
 
         <!-- Messages Dropdown Menu -->
 
-        <!-- Notifications Dropdown Menu -->
-
-        <li class="nav-item">
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
+        <!-- User Dropdown Menu -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="image mr-2">
+                    <img src="{{ asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                        alt="User Image" width="30" height="30">
+                </div>
+                <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                    <i class="fas fa-user mr-2"></i> Profile
+                </a>
+                <a class="dropdown-item" href="{{ route('game-data.edit') }}">
+                    <i class="fas fa-gamepad mr-2"></i> Game Data
+                </a>
+                <div class="dropdown-divider"></div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <input type="submit" name="submit" value="Log out" class="btn btn-primary btn-sm">
-                    {{-- <a :href="route('logout')"
-                        onclick="event.preventDefault();
-                                    this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </a> --}}
+                    <button type="submit" class="dropdown-item text-danger">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                    </button>
                 </form>
+            </div>
         </li>
     </ul>
 </nav>
