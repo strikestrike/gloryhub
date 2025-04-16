@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (Schema::hasTable('settings')) {
-            config(['app.name' => \App\Models\Setting::get('app_name') ?? config('app.name')]);
+            config(['app.name' => Setting::getValue('app_name', config('app.name'))]);
         }
     }
 }
