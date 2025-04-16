@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        config(['app.name' => Setting::getValue('app_name', config('app.name'))]);
+        if (Schema::hasTable('settings')) {
+            config(['app.name' => Setting::getValue('app_name', config('app.name'))]);
+        }
     }
 }
