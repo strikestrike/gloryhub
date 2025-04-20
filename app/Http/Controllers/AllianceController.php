@@ -25,7 +25,7 @@ class AllianceController extends Controller
             return redirect()->route('login');
         }
 
-        if ($user->isSuperAdmin()) {
+        if ($user->isSuperAdmin() || $user->isKing()) {
             $query = GameData::select([
                 'user_id',
                 'castle_level',

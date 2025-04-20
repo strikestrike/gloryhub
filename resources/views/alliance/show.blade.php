@@ -1,6 +1,6 @@
 <x-admin>
     @section('title')
-    {{ auth()->user()->isSuperAdmin() ? 'Alliance' : 'Alliance ' . auth()->user()->alliance->name }}
+    {{ (auth()->user()->isSuperAdmin() || auth()->user()->isKing()) ? 'Alliance' : 'Alliance ' . auth()->user()->alliance->name }}
     @endsection
 
     <div class="card">

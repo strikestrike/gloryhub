@@ -28,7 +28,7 @@ class DistributionController extends Controller
             return redirect()->route('login');
         }
 
-        $query = $user->isSuperAdmin()
+        $query = ($user->isSuperAdmin() || $user->isKing())
             ? GameData::with('user:id,name')
             : GameData::whereIn('user_id', $user->alliance->members->pluck('id'))->with('user:id,name');
 
