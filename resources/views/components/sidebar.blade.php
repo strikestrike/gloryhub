@@ -43,6 +43,14 @@
                 </p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('access-requests') }}" class="nav-link {{ Route::is('access-requests') ? 'active' : '' }}">
+                <i class="nav-icon fas fa fa-gift"></i>
+                <p>
+                    {{ __('pages.access_requests') }}
+                </p>
+            </a>
+        </li>
         @endif
     </ul>
 </nav>

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AccessRequestController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AllianceController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DistributionController;
 use App\Http\Controllers\GameDataController;
 use App\Http\Controllers\MasterListController;
@@ -20,6 +22,10 @@ Route::get('lang/{locale}', function ($locale) {
 
     return redirect()->back();
 })->name('change.language');
+
+Route::get('/questionnaire', [AccessRequestController::class, 'showForm']);
+Route::post('/questionnaire', [AccessRequestController::class, 'submitForm'])->name('questionnaire.submit');
+Route::get('/register/{token}', [RegisteredUserController::class, 'showRegistrationFormFromToken'])->name('register.from_token');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/game-data', [GameDataController::class, 'edit'])
@@ -51,6 +57,10 @@ Route::middleware(['auth', 'game-data-check'])->group(function () {
 });
 
 Route::middleware(['auth', 'superAdmin'])->group(function () {
+    Route::get('/access-requests', [AccessRequestController::class, 'index'])->name('access-requests');
+    Route::get('/access-requests-data', [AccessRequestController::class, 'getData'])->name('access-requests.data');
+    Route::post('/access-requests/{id}/approve', [AccessRequestController::class, 'approve']);
+    Route::post('/access-requests/{id}/deny', [AccessRequestController::class, 'deny']);
     Route::get('/users', [AdminUserController::class, 'index'])->name('users');
     Route::get('/users/data', [AdminUserController::class, 'getData'])->name('users.data');
     Route::post('/users/{id}/reset-password', [AdminUserController::class, 'resetPassword'])->name('users.reset-password');
