@@ -27,6 +27,18 @@
 </head>
 
 <body class="hold-transition login-page">
+    <div class="text-right p-3">
+        <form method="GET" id="lang-form">
+            @csrf
+            <select name="locale" onchange="changeLanguage(this.value);" class="form-control w-auto d-inline-block">
+                @foreach(config('game.languages') as $code => $label)
+                <option value="{{ $code }}" {{ app()->getLocale() === $code ? 'selected' : '' }}>
+                    {{ $label }}
+                </option>
+                @endforeach
+            </select>
+        </form>
+    </div>
     {{ $slot }}
     <!-- /.login-box -->
 
@@ -36,6 +48,17 @@
     <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
+    <script>
+        function changeLanguage(locale) {
+            // Dynamically change the action of the form
+            var form = document.getElementById('lang-form');
+            form.action = "{{ url('lang') }}/" + locale;
+
+            // Submit the form
+            form.submit();
+        }
+    </script>
+
 </body>
 
 </html>

@@ -1,11 +1,11 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Update Password') }}
+            {{ __('pages.update_password') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __('Ensure your account is using a long, random password to stay secure.') }}
+            {{ __('pages.secure_password_tip') }}
         </p>
     </header>
 
@@ -32,16 +32,15 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <button class="btn btn-primary btn-sm" type="submit">{{ __('Save') }}</button>
+            <button class="btn btn-primary btn-sm" type="submit">{{ __('pages.save') }}</button>
 
             @if (session('status') === 'password-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600"
-                >{{ __('Saved.') }}</p>
+            <p
+                x-data="{ show: true }"
+                x-show="show"
+                x-transition
+                x-init="setTimeout(() => show = false, 2000)"
+                class="text-sm text-gray-600">{{ __('Saved.') }}</p>
             @endif
         </div>
     </form>

@@ -6,7 +6,20 @@ use App\Http\Controllers\DistributionController;
 use App\Http\Controllers\GameDataController;
 use App\Http\Controllers\MasterListController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+
+Route::get('lang/{locale}', function ($locale) {
+    $availableLanguages = array_keys(config('game.languages'));
+
+    if (in_array($locale, $availableLanguages)) {
+        session(['locale' => $locale]);
+        app()->setLocale($locale);
+        Log::info('getLocal: ' . app()->getLocale());
+    }
+
+    return redirect()->back();
+})->name('change.language');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/game-data', [GameDataController::class, 'edit'])

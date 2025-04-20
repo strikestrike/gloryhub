@@ -1,21 +1,21 @@
 <x-admin>
-    @section('title', 'Users Management')
+    @section('title', __('pages.users_management'))
 
     <div class="card">
         <div class="card-header">
-            <h4>User List</h4>
+            <h4>__('pages.user_list')</h4>
         </div>
 
         <div class="card-body">
             <table class="table table-bordered table-striped datatable-users" width="100%">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Alliance</th>
-                        <th>Registered At</th>
-                        <th>Actions</th>
+                        <th>{{ __('pages.name') }}</th>
+                        <th>{{ __('pages.email') }}</th>
+                        <th>{{ __('pages.role') }}</th>
+                        <th>{{ __('pages.alliance') }}</th>
+                        <th>{{ __('pages.registered_at') }}</th>
+                        <th>{{ __('pages.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -63,8 +63,8 @@
                         searchable: false,
                         render: function(id, type, row, meta) {
                             return `
-                            <button class="btn btn-warning btn-sm btn-reset" data-id="${id}">Reset Password</button>
-                            <button class="btn btn-danger btn-sm btn-delete ml-2" data-id="${id}">Delete</button>
+                            <button class="btn btn-warning btn-sm btn-reset" data-id="${id}">{{ __('global.reset_password') }}</button>
+                            <button class="btn btn-danger btn-sm btn-delete ml-2" data-id="${id}">{{ __('pages.delete') }}</button>
                         `;
                         }
                     }
@@ -77,13 +77,13 @@
             // Optional: handle actions via AJAX or confirm dialogs
             $(document).on('click', '.btn-reset', function() {
                 const userId = $(this).data('id');
-                if (confirm('Reset password for this user?')) {
+                if (confirm("{{ __('pages.confirm_reset_password') }}")) {
                     $.post("{{ url('/users') }}/" + userId + "/reset-password", {
                         _token: '{{ csrf_token() }}'
                     }).done(function(response) {
-                        alert(response.message || 'Password reset successfully.');
+                        alert(response.message || "{{ __('pages.password_reset_success') }}");
                     }).fail(function() {
-                        alert('Failed to reset password.');
+                        alert("{{ __('pages.password_reset_failed') }}");
                     });
                 }
             });
@@ -91,7 +91,7 @@
             // Handle delete via AJAX
             $(document).on('click', '.btn-delete', function() {
                 const userId = $(this).data('id');
-                if (confirm('Are you sure you want to delete this user?')) {
+                if (confirm("{{ __('pages.confirm_delete_user') }}")) {
                     $.ajax({
                         url: "{{ url('/users') }}/" + userId,
                         type: 'DELETE',
@@ -99,11 +99,11 @@
                             _token: '{{ csrf_token() }}'
                         },
                         success: function(response) {
-                            alert(response.message || 'User deleted successfully.');
+                            alert(response.message || "{{ __('pages.user_deleted_successfully') }}");
                             dtUsers.ajax.reload();
                         },
                         error: function() {
-                            alert('Failed to delete user.');
+                            alert("{{ __('pages.failed_delete_user') }}");
                         }
                     });
                 }

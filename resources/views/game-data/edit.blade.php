@@ -1,11 +1,11 @@
 <x-admin>
     @section('title')
-    {{ __('Game Information Setup') }}
+    {{ __('pages.game_info_setup') }}
     @endsection
 
     <div class="card">
         <div class="card-header">
-            <h4>{{ $gameData ? 'Edit' : 'Create' }} Game Data</h4>
+            <h4>{{ $gameData ? __('pages.edit') : __('pages.create') }} __('pages.game_data')</h4>
         </div>
 
         <div class="card-body">
@@ -27,7 +27,7 @@
 
                         {{-- Alliance Name --}}
                         <div class="form-group">
-                            <label class="required" for="alliance">Alliance Name</label>
+                            <label class="required" for="alliance">__('pages.alliance_name')</label>
                             <input
                                 type="text"
                                 id="alliance"
@@ -38,7 +38,7 @@
                             @if($errors->has('alliance'))
                             <span class="text-danger">{{ $errors->first('alliance') }}</span>
                             @endif
-                            <span class="help-block">Alliance name cannot be changed after setup</span>
+                            <span class="help-block">{{ __('pages.alliance_name_locked') }}</span>
                         </div>
 
                         {{-- Military Buildings --}}
@@ -67,7 +67,7 @@
 
                         {{-- Duke Badges --}}
                         <div class="form-group">
-                            <label for="duke_badges">Duke Badges</label>
+                            <label for="duke_badges">{{ __('pages.duke_badges') }}</label>
                             <input
                                 type="number"
                                 id="duke_badges"
@@ -84,7 +84,7 @@
                         <div class="row">
                             {{-- Target Building --}}
                             <div class="form-group col-md-6">
-                                <label for="target_building">Target Building</label>
+                                <label for="target_building">{{ __('pages.target_building') }}</label>
                                 <select
                                     id="target_building"
                                     name="target_building"
@@ -103,7 +103,7 @@
                             </div>
                             {{-- Target Level --}}
                             <div class="form-group col-md-6">
-                                <label for="target_level">Target Level</label>
+                                <label for="target_level">{{ __('pages.target_level') }}</label>
                                 <select
                                     id="target_level"
                                     name="target_level"
@@ -125,31 +125,26 @@
                         {{-- Submit --}}
                         <div class="form-group mt-4">
                             <button type="submit" class="btn btn-primary btn-block">
-                                {{ $gameData ? 'Update' : 'Create' }} Game Data
+                                {{ $gameData ? __('pages.update') : __('pages.create') }} {{ __('pages.game_data') }}
                             </button>
-                        </div>
-
-                        <div class="text-muted small text-center mt-3">
-                            Levels range from {{ config('game.building_levels.0') }} to {{ config('game.building_levels')[count(config('game.building_levels')) - 1] }}<br>
-                            Alliance name is set once and cannot be modified later.
                         </div>
                     </form>
                 </div>
 
                 {{-- Right Column: Duke Level Requirements --}}
                 <div class="col-md-6 ps-4">
-                    <h5 class="mb-3">Duke Level Requirements</h5>
+                    <h5 class="mb-3">{{ __('pages.duke_level_requirements') }}</h5>
 
                     @if(isset($dukeLevels) && $dukeLevels->count())
                     <div class="table-responsive">
                         <table class="table table-bordered table-sm">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Level</th>
-                                    <th>Castle</th>
-                                    <th>Range</th>
-                                    <th>Stables</th>
-                                    <th>Barracks</th>
+                                    <th>{{ __('pages.level') }}</th>
+                                    <th>{{ __('pages.castle') }}</th>
+                                    <th>{{ __('pages.range') }}</th>
+                                    <th>{{ __('pages.stables') }}</th>
+                                    <th>{{ __('pages.barracks') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -166,7 +161,7 @@
                         </table>
                     </div>
                     @else
-                    <p class="text-muted">No requirements found.</p>
+                    <p class="text-muted">{{ __('pages.no_requirements_found') }}</p>
                     @endif
                 </div>
             </div>

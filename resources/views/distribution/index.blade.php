@@ -1,11 +1,11 @@
 <x-admin>
     @section('title')
-    {{ 'Award Distribution' }}
+    {{ __('pages.award_distribution') }}
     @endsection
 
     <div class="card">
         <div class="card-header d-flex align-items-center">
-            <span class="mr-3">Kingdom Level</span>
+            <span class="mr-3">{{ __('pages.kingdom_level') }}</span>
             <select id="kingdomLevel" class="form-control col-2">
                 @foreach(range(config('game.kingdom_levels.min'), config('game.kingdom_levels.max')) as $level)
                 <option value="{{ $level }}">Level {{ $level }}</option>
@@ -13,10 +13,10 @@
             </select>
             @if(auth()->user()->isSuperAdmin() || auth()->user()->isKing())
             <button type="button" class="btn btn-danger ml-3" id="reset-all-btn">
-                Reset Assignments
+                {{ __('pages.reset_assignments') }}
             </button>
             <button type="button" class="btn btn-success ml-3" id="saveDistributionBtn">
-                Save
+                {{ __('pages.save') }}
             </button>
             @endif
         </div>
@@ -25,8 +25,8 @@
             <table class="table table-sm table-striped" id="distributionTable">
                 <thead>
                     <tr>
-                        <th>Award</th>
-                        <th>Player</th>
+                        <th>{{ __('pages.award') }}</th>
+                        <th>{{ __('pages.player') }}</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -50,7 +50,7 @@
                 <td>${row.award_type} #${row.position + 1}</td>
                 <td>
                     <select class="form-control award-select" {{ !(auth()->user()->isSuperAdmin() || auth()->user()->isKing()) ? 'disabled' : '' }}>
-                        <option value="">-- Select Player --</option>
+                        <option value="">-- {{ __('pages.select_player') }} --</option>
                         ${options}
                     </select>
                 </td>
@@ -100,16 +100,16 @@
                         kingdom_level: $('#kingdomLevel').val()
                     },
                     success: function() {
-                        alert('Assignments saved!');
+                        alert("{{ __('pages.assignments_saved') }}");
                     },
                     error: function() {
-                        alert('Failed to save assignments.');
+                        alert("{{ __('pages.save_assignments_failed') }}");
                     }
                 });
             });
 
             $('#reset-all-btn').on('click', function() {
-                if (!confirm('Are you sure you want to reset all assignments?')) return;
+                if (!confirm("{{ __('pages.confirm_reset_all_assignments') }}")) return;
 
                 const kingdomLevel = $('#kingdomLevel').val();
 
@@ -122,10 +122,10 @@
                     },
                     success: function() {
                         $('.player-select').val('');
-                        console.log('All assignments reset successfully');
+                        console.log("{{ __('pages.all_assignments_reset') }}");
                     },
                     error: function() {
-                        alert('Failed to reset all assignments.');
+                        alert("{{ __('pages.reset_all_assignments_failed') }}");
                     }
                 });
             });

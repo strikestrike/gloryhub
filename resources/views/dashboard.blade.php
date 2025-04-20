@@ -1,6 +1,6 @@
 <x-admin>
     @section('title')
-    {{ 'Dashboard' }}
+    {{ __('pages.dashboard') }}
     @endsection
 
     <div class="row">
@@ -23,13 +23,13 @@
             <div class="small-box bg-primary">
                 <div class="inner">
                     <h3>{{ $totalAwards ?? 0 }}</h3>
-                    <p>Total Awards Assigned</p>
+                    <p>{{ __('pages.total_awards_assigned') }}</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-medal"></i>
                 </div>
                 <a href="{{ route('distribution') }}" class="small-box-footer">
-                    View Assignments <i class="fas fa-arrow-circle-right"></i>
+                    {{ __('pages.view_assignments') }} <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>
@@ -38,13 +38,13 @@
             <div class="small-box bg-success">
                 <div class="inner">
                     <h3>{{ $totalPlayers ?? 0 }}</h3>
-                    <p>Total Players</p>
+                    <p>{{ __('pages.total_players') }}</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-users"></i>
                 </div>
                 <a href="{{ route('alliance') }}" class="small-box-footer">
-                    View Players <i class="fas fa-arrow-circle-right"></i>
+                    {{ __('pages.view_players') }} <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>
@@ -58,7 +58,7 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editAppNameModalLabel">Edit App Name</h5>
+                        <h5 class="modal-title" id="editAppNameModalLabel">{{ __('pages.edit_app_name') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span>&times;</span>
                         </button>
@@ -67,8 +67,8 @@
                         <input type="text" name="app_name" class="form-control" value="{{ config('app.name') }}" required>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">{{ __('pages.save') }}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('pages.cancel') }}</button>
                     </div>
                 </div>
             </form>

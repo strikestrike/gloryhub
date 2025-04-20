@@ -2,6 +2,28 @@
 
 return [
 
+    'languages' => [
+        'en'    => 'English',
+        'fr'    => 'Français',
+        'es'    => 'Español',
+        'de'    => 'Deutsch',
+        'vi'    => 'Tiếng Việt',
+        'it'    => 'Italiano',
+        'pl'    => 'Polski',
+        'id'    => 'Bahasa Indonesia',
+        'ru'    => 'Русский',
+        'ko'    => '한국어',
+        'zh'    => '简体中文',
+        'zh-TW' => '繁體中文',
+        'pt'    => 'Português',
+        'th'    => 'ภาษาไทย',
+        'tr'    => 'Türkçe',
+        'ja'    => '日本語',
+        'nl'    => 'Nederlands',
+        'sv'    => 'Svenska',
+        'ar'    => 'العربية',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Level Range Settings

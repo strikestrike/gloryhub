@@ -1,16 +1,15 @@
 <x-guest-layout>
     @section('title')
-    {{ 'Recover your password' }}
+    {{ __('pages.recover_password') }}
     @endsection
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="/" class="h1"><b>Game Portal</b></a>
+                <a href="/" class="h1"><b>{{ config('app.name') }}</b></a>
             </div>
             <div class="card-body">
                 <x-auth-session-status class="mb-4" :status="session('status')" />
-                <p class="login-box-msg">Forgot your password? No problem. Just let us know your email address and we
-                    will email you a password reset link that will allow you to choose a new one.</p>
+                <p class="login-box-msg">{{ __('pages.forgot_password_instruction') }}</p>
                 <form action="{{ route('password.email') }}" method="POST">
                     @csrf
                     <div class="input-group mb-3">
@@ -25,13 +24,13 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">Email Password Reset Link</button>
+                            <button type="submit" class="btn btn-primary btn-block">{{ __('pages.email_password_reset_link') }}</button>
                         </div>
                         <!-- /.col -->
                     </div>
                 </form>
                 <p class="mt-3 mb-1">
-                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('login') }}">{{ __('pages.login') }}</a>
                 </p>
             </div>
             <!-- /.login-card-body -->

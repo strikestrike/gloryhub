@@ -1,14 +1,14 @@
 <x-guest-layout>
     @section('title')
-    {{ 'Log in' }}
+    {{ __('pages.log_in') }}
     @endsection
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="/" class="h1"><b>Game Portal</b></a>
+                <a href="/" class="h1"><b>{{ config('app.name') }}</b></a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">{{ __('pages.sign_in_prompt') }}</p>
 
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
@@ -37,21 +37,21 @@
                             <div class="icheck-primary">
                                 <input type="checkbox" name="remember" id="remember">
                                 <label for="remember">
-                                    Remember Me
+                                    {{ __('pages.remember_me') }}
                                 </label>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block">{{ __('pages.sign_in') }}</button>
                         </div>
                     </div>
                 </form>
 
                 <p class="mb-1">
-                    <a href="{{ route('password.request') }}">I forgot my password</a>
+                    <a href="{{ route('password.request') }}">{{ __('pages.forgot_password') }}</a>
                 </p>
                 <p class="mb-0">
-                    <a href="{{ route('register') }}" class="text-center">Register a new Account</a>
+                    <a href="{{ route('register') }}" class="text-center">{{ __('pages.register_new_account') }}</a>
                 </p>
             </div>
         </div>

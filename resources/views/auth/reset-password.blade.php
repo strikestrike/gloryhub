@@ -1,17 +1,16 @@
 <x-guest-layout>
     <!-- Password -->
     @section('title')
-    {{ 'Reset Your Password' }}
+    {{ __('pages.reset_password') }}
     @endsection
 
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="/" class="h1"><b>Game Portal</b></a>
+                <a href="/" class="h1"><b>{{ config('app.name') }}</b></a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">You are only one step a way from your new password, recover your password now.
-                </p>
+                <p class="login-box-msg">{{ __('pages.reset_password_prompt') }}</p>
                 <form method="POST" action="{{ route('password.store') }}">
                     @csrf
                     <input type="hidden" name="token" value="{{ $request->route('token') }}">
@@ -54,7 +53,7 @@
                 </form>
 
                 <p class="mt-3 mb-1">
-                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('login') }}">{{ __('pages.login') }}</a>
                 </p>
             </div>
             <!-- /.login-card-body -->

@@ -1,11 +1,11 @@
 <x-guest-layout>
     @section('title')
-    {{'Register'}}
+    {{ __('pages.register') }}
     @endsection
     <div class="register-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="/" class="h1"><b>Game Portal</b></a>
+                <a href="/" class="h1"><b>{{ config('app.name') }}</b></a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Register a new player</p>
@@ -54,8 +54,8 @@
                     </div>
                     <div class="row">
                         <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block">{{ __('pages.register') }}</button>
                         </div>
                         <!-- /.col -->
                     </div>

@@ -1,6 +1,6 @@
 <x-admin>
     @section('title')
-    {{ (auth()->user()->isSuperAdmin() || auth()->user()->isKing()) ? 'Alliance' : 'Alliance ' . auth()->user()->alliance->name }}
+    {{ (auth()->user()->isSuperAdmin() || auth()->user()->isKing()) ? __('pages.alliance') : __('pages.alliance') . ' ' . auth()->user()->alliance->name }}
     @endsection
 
     <div class="card">
@@ -24,20 +24,20 @@
             <table class="table table-striped datatable-alliance" width="100%">
                 <thead>
                     <tr>
-                        <th>Player Name</th>
-                        <th>CASTLE LEVEL</th>
-                        <th>RANGE</th>
-                        <th>STABLES</th>
-                        <th>BARRACKS</th>
-                        <th>DUKE BADGES</th>
-                        <th>TARGET BUILDING</th>
-                        <th>TARGET LEVEL</th>
-                        <th>Date updated</th>
-                        <th>Dukes-Castle needed</th>
-                        <th>Dukes-Stables needed</th>
-                        <th>Dukes-Barracks needed</th>
-                        <th>Dukes-Range needed</th>
-                        <th>Dukes needed</th>
+                        <th>{{ __('pages.player_name') }}</th>
+                        <th>{{ __('pages.castle_level') }}</th>
+                        <th>{{ __('pages.range') }}</th>
+                        <th>{{ __('pages.stables') }}</th>
+                        <th>{{ __('pages.barracks') }}</th>
+                        <th>{{ __('pages.duke_badges') }}</th>
+                        <th>{{ __('pages.target_building') }}</th>
+                        <th>{{ __('pages.target_level') }}</th>
+                        <th>{{ __('pages.updated_at') }}</th>
+                        <th>{{ __('pages.dukes_castle_needed') }}</th>
+                        <th>{{ __('pages.dukes_stables_needed') }}</th>
+                        <th>{{ __('pages.dukes_barracks_needed') }}</th>
+                        <th>{{ __('pages.dukes_range_needed') }}</th>
+                        <th>{{ __('pages.dukes_needed') }}</th>
                     </tr>
                 </thead>
                 <tbody>

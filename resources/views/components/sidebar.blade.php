@@ -6,7 +6,7 @@
             <a href="{{ route('/') }}" class="nav-link {{ Route::is('/') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
-                    Dashboard
+                    {{ __('pages.dashboard') }}
                 </p>
             </a>
         </li>
@@ -14,7 +14,7 @@
             <a href="{{ route('alliance') }}" class="nav-link {{ Route::is('alliance') ? 'active' : '' }}">
                 <i class="nav-icon fas fa fa-anchor"></i>
                 <p>
-                    Alliance
+                    {{ __('pages.alliance') }}
                 </p>
             </a>
         </li>
@@ -22,7 +22,7 @@
             <a href="{{ route('master-list') }}" class="nav-link {{ Route::is('master-list') ? 'active' : '' }}">
                 <i class="nav-icon fas fa fa-archive"></i>
                 <p>
-                    Master List
+                    {{ __('pages.master_list') }}
                 </p>
             </a>
         </li>
@@ -30,7 +30,7 @@
             <a href="{{ route('distribution') }}" class="nav-link {{ Route::is('distribution') ? 'active' : '' }}">
                 <i class="nav-icon fas fa fa-gift"></i>
                 <p>
-                    Distribution List
+                    {{ __('pages.distribution_list') }}
                 </p>
             </a>
         </li>
@@ -39,7 +39,7 @@
             <a href="{{ route('users') }}" class="nav-link {{ Route::is('users') ? 'active' : '' }}">
                 <i class="nav-icon fas fa fa-gift"></i>
                 <p>
-                    User List
+                    {{ __('pages.user_list') }}
                 </p>
             </a>
         </li>

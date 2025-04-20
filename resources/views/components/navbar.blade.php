@@ -24,8 +24,20 @@
         <!-- Navbar Search -->
 
 
-        <!-- Messages Dropdown Menu -->
-
+        <!-- Languages Dropdown Menu -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                🌐 {{ config('game.languages')[app()->getLocale()] }}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="langDropdown">
+                @foreach(config('game.languages') as $lang => $langName)
+                <a class="dropdown-item" href="{{ route('change.language', $lang) }}">
+                    {{ $langName }}
+                </a>
+                @endforeach
+            </div>
+        </li>
         <!-- User Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
@@ -38,16 +50,16 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                    <i class="fas fa-user mr-2"></i> Profile
+                    <i class="fas fa-user mr-2"></i> {{ __('pages.profile') }}
                 </a>
                 <a class="dropdown-item" href="{{ route('game-data.edit') }}">
-                    <i class="fas fa-gamepad mr-2"></i> Game Data
+                    <i class="fas fa-gamepad mr-2"></i> {{ __('pages.game_data') }}
                 </a>
                 <div class="dropdown-divider"></div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="dropdown-item text-danger">
-                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                        <i class="fas fa-sign-out-alt mr-2"></i> {{ __('pages.logout') }}
                     </button>
                 </form>
             </div>
