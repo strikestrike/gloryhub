@@ -35,7 +35,7 @@ return [
     'building_levels' => [46, 47, 48, 49, 50],
     'buildings' => [
         'castle'   => 'Castle',
-        'range'    => 'Archery Range',
+        'range'    => 'Range',
         'stables'  => 'Stables',
         'barracks' => 'Barracks',
     ],
