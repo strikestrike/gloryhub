@@ -109,4 +109,7 @@ return [
     'role' => '役割',
     'actions' => '操作',
     'remember_me' => "ログイン状態を保持する",
+    'select_your_castle' => '自分の城を選択してください',
+    'add_new_castle' => '新しい城を追加',
+    'castle_name' => '城の名前'
 ];

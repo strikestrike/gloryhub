@@ -109,4 +109,7 @@ return [
     'role' => 'Rol',
     'actions' => 'İşlemler',
     'remember_me' => "Beni hatırla",
+    'select_your_castle' => 'Kalenizi seçin',
+    'add_new_castle' => 'Yeni kale ekle',
+    'castle_name' => 'Kale adı'
 ];

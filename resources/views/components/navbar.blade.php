@@ -21,9 +21,6 @@
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">
-        <!-- Navbar Search -->
-
-
         <!-- Languages Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button"
@@ -38,6 +35,7 @@
                 @endforeach
             </div>
         </li>
+
         <!-- User Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
@@ -54,6 +52,9 @@
                 </a>
                 <a class="dropdown-item" href="{{ route('game-data.edit') }}">
                     <i class="fas fa-gamepad mr-2"></i> {{ __('pages.game_data') }}
+                </a>
+                <a class="dropdown-item" href="{{ route('game-data.show_castles') }}">
+                    <i class="fas fa-chess-rook mr-2"></i> {{ __('pages.select_your_castle') }}
                 </a>
                 <div class="dropdown-divider"></div>
                 <form method="POST" action="{{ route('logout') }}">

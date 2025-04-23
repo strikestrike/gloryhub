@@ -29,7 +29,7 @@ class User extends Authenticatable
 
     public function gameData()
     {
-        return $this->hasOne(GameData::class);
+        return $this->hasMany(GameData::class);
     }
 
     public function kingdom()
@@ -42,7 +42,6 @@ class User extends Authenticatable
         return $this->hasMany(AwardAssignment::class);
     }
 
-    // Helper Methods
     public function isSuperAdmin()
     {
         return $this->role === 'super_admin';
@@ -51,5 +50,10 @@ class User extends Authenticatable
     public function isKing()
     {
         return $this->role === 'king';
+    }
+
+    public function isPlayer()
+    {
+        return $this->role === 'player';
     }
 }

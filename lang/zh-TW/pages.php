@@ -109,4 +109,7 @@ return [
     'role' => '角色',
     'actions' => '操作',
     'remember_me' => "記住我",
+    'select_your_castle' => '選擇你的城堡',
+    'add_new_castle' => '新增城堡',
+    'castle_name' => '城堡名稱'
 ];

@@ -25,14 +25,16 @@ Route::get('lang/{locale}', function ($locale) {
 
 Route::get('/questionnaire', [AccessRequestController::class, 'showForm']);
 Route::post('/questionnaire', [AccessRequestController::class, 'submitForm'])->name('questionnaire.submit');
-Route::get('/register/{token}', [RegisteredUserController::class, 'showRegistrationFormFromToken'])->name('register.from_token');
+Route::get('/register', function () {
+    return redirect('/questionnaire');
+})->name('register');
+Route::get('/register/{token}', [RegisteredUserController::class, 'showRegistrationFormFromToken'])->middleware('check.registration.token')->name('register.from_token');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/game-data', [GameDataController::class, 'edit'])
-        ->name('game-data.edit');
-
-    Route::post('/game-data', [GameDataController::class, 'store'])
-        ->name('game-data.store');
+    Route::get('/game-data', [GameDataController::class, 'edit'])->name('game-data.edit');
+    Route::post('/game-data', [GameDataController::class, 'store'])->name('game-data.store');
+    Route::get('/show-castles', [GameDataController::class, 'showCastles'])->name('game-data.show_castles');
+    Route::post('/select-castle', [GameDataController::class, 'selectCastle'])->name('game-data.select_castle');
 });
 
 Route::middleware(['auth', 'game-data-check'])->group(function () {

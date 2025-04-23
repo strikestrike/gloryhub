@@ -15,22 +15,55 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css') }}">
+
     <style>
         body.login-page {
-            background-image: url('/images/background.jpg');
-            /* adjust path as needed */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-color: black;
+            padding-top: 80px;
+            padding-bottom: 60px;
+        }
+
+        .logo-img {
+            max-width: 200px;
+            height: auto;
+            display: block;
+            margin: 0 auto 30px auto;
+        }
+
+        .bottom-text {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .bottom-text h2 {
+            color: white;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .bottom-text h3 {
+            color: #eb781f;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        .icheck-primary {
+            text-align: left;
+        }
+
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
         }
     </style>
 </head>
 
 <body class="hold-transition login-page">
-    <div class="text-right p-3">
+    <div class="lang-switcher">
         <form method="GET" id="lang-form">
             @csrf
-            <select name="locale" onchange="changeLanguage(this.value);" class="form-control w-auto d-inline-block">
+            <select name="locale" onchange="changeLanguage(this.value);" class="form-control">
                 @foreach(config('game.languages') as $code => $label)
                 <option value="{{ $code }}" {{ app()->getLocale() === $code ? 'selected' : '' }}>
                     {{ $label }}
@@ -39,26 +72,32 @@
             </select>
         </form>
     </div>
-    {{ $slot }}
-    <!-- /.login-box -->
 
-    <!-- jQuery -->
+    <!-- Logo -->
+    <img src="/images/logo.png" alt="Logo" class="logo-img">
+
+    <!-- Main content slot -->
+    <div class="container d-flex justify-content-center">
+        {{ $slot }}
+    </div>
+
+    <!-- Bottom Text -->
+    <div class="bottom-text">
+        <h2>K44</h2>
+        <h3>ROYAL PACK DISTRIBUTION</h3>
+    </div>
+
+    <!-- Scripts -->
     <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
     <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- AdminLTE App -->
     <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
     <script>
         function changeLanguage(locale) {
-            // Dynamically change the action of the form
             var form = document.getElementById('lang-form');
             form.action = "{{ url('lang') }}/" + locale;
-
-            // Submit the form
             form.submit();
         }
     </script>
-
 </body>
 
 </html>

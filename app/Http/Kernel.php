@@ -55,6 +55,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewareAliases = [
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'check.registration.token' => \App\Http\Middleware\EnsureRegistrationTokenIsPresent::class,
         'game-data-check' => \App\Http\Middleware\GameDataMiddleware::class,
         'king' => \App\Http\Middleware\KingMiddleware::class,
         'superAdmin' => \App\Http\Middleware\SuperAdminMiddleware::class,

@@ -109,4 +109,7 @@ return [
     'role' => 'Peran',
     'actions' => 'Tindakan',
     'remember_me' => "Ingat saya",
+    'select_your_castle' => 'Pilih kastil Anda',
+    'add_new_castle' => 'Ajouter un nouveau château',
+    'castle_name' => 'Nama kastil'
 ];

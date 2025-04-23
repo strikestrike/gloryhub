@@ -109,4 +109,7 @@ return [
     'role' => 'Ruolo',
     'actions' => 'Azioni',
     'remember_me' => "Ricordami",
+    'select_your_castle' => 'Seleziona il tuo castello',
+    'add_new_castle' => 'Aggiungi nuovo castello',
+    'castle_name' => 'Nome del castello'
 ];

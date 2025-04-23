@@ -22,9 +22,27 @@ class GameDataMiddleware
             return redirect()->route('login');
         }
 
-        if (!$user->isSuperAdmin() && !$user->gameData) {
+        if ($user->isSuperAdmin()) {
+            return $next($request);
+        }
+
+        if (!$user->gameData) {
             return redirect()->route('game-data.edit');
         }
+
+        if (!session()->has('selected_castle')) {
+            $castles = $user->gameData()->get();
+
+            if ($castles->count() === 1) {
+                session(['selected_castle' => $castles->first()->id]);
+                return redirect()->route('/');
+            }
+
+            if (!$request->routeIs('game-data.show_castles') && !$request->routeIs('logout')) {
+                return redirect()->route('game-data.show_castles');
+            }
+        }
+
         return $next($request);
     }
 }

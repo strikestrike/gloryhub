@@ -109,4 +109,7 @@ return [
     'role' => '역할',
     'actions' => '작업',
     'remember_me' => "로그인 상태 유지",
+    'select_your_castle' => '당신의 성을 선택하세요',
+    'add_new_castle' => '새 성 추가',
+    'castle_name' => '성 이름'
 ];

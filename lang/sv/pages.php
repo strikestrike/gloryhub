@@ -109,4 +109,7 @@ return [
     'role' => 'Roll',
     'actions' => 'Åtgärder',
     'remember_me' => "Kom ihåg mig",
+    'select_your_castle' => 'Välj ditt slott',
+    'add_new_castle' => 'Lägg till nytt slott',
+    'castle_name' => 'Slottsnamn'
 ];

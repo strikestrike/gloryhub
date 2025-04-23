@@ -109,4 +109,7 @@ return [
     'role' => 'Role',
     'actions' => 'Actions',
     'remember_me' => "Remember me",
+    'select_your_castle' => 'Select your castle',
+    'add_new_castle' => 'Add new castle',
+    'castle_name' => 'Castle name'
 ];

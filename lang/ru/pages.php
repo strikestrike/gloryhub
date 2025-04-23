@@ -109,4 +109,7 @@ return [
     'role' => 'Роль',
     'actions' => 'Действия',
     'remember_me' => "Запомнить меня",
+    'select_your_castle' => 'Выберите свой замок',
+    'add_new_castle' => 'Добавить новый замок',
+    'castle_name' => 'Название замка'
 ];

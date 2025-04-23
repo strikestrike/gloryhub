@@ -11,14 +11,6 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('alliance') }}" class="nav-link {{ Route::is('alliance') ? 'active' : '' }}">
-                <i class="nav-icon fas fa fa-anchor"></i>
-                <p>
-                    {{ __('pages.alliance') }}
-                </p>
-            </a>
-        </li>
-        <li class="nav-item">
             <a href="{{ route('master-list') }}" class="nav-link {{ Route::is('master-list') ? 'active' : '' }}">
                 <i class="nav-icon fas fa fa-archive"></i>
                 <p>

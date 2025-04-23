@@ -109,4 +109,7 @@ return [
     'role' => 'الدور',
     'actions' => 'الإجراءات',
     'remember_me' => "تذكرني",
+    'select_your_castle' => 'اختر قلعتك',
+    'add_new_castle' => 'أضف قلعة جديدة',
+    'castle_name' => 'اسم القلعة'
 ];

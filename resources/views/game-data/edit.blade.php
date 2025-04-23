@@ -5,7 +5,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h4>{{ $gameData ? __('pages.edit') : __('pages.create') }} __('pages.game_data')</h4>
+            <h4>{{ $gameData ? __('pages.edit') : __('pages.create') }} {{ __('pages.game_data') }}</h4>
         </div>
 
         <div class="card-body">
@@ -25,20 +25,23 @@
                     <form method="POST" action="{{ route('game-data.store') }}">
                         @csrf
 
-                        {{-- Alliance Name --}}
+                        @if(request()->has('fresh'))
+                        <input type="hidden" name="fresh" value="1">
+                        @endif
+
+                        {{-- Castle Name --}}
                         <div class="form-group">
-                            <label class="required" for="alliance">__('pages.alliance_name')</label>
+                            <label class="required" for="castle_name">{{ __('pages.castle_name') }}</label>
                             <input
                                 type="text"
-                                id="alliance"
-                                name="alliance"
-                                class="form-control {{ $errors->has('alliance') ? 'is-invalid' : '' }}"
-                                value="{{ old('alliance', $alliance ?? '') }}"
-                                {{ ($alliance) ? 'readonly' : 'required' }}>
-                            @if($errors->has('alliance'))
-                            <span class="text-danger">{{ $errors->first('alliance') }}</span>
+                                id="castle_name"
+                                name="castle_name"
+                                class="form-control {{ $errors->has('castle_name') ? 'is-invalid' : '' }}"
+                                value="{{ old('castle_name', $gameData->castle_name ?? '') }}"
+                                required>
+                            @if($errors->has('castle_name'))
+                            <span class="text-danger">{{ $errors->first('castle_name') }}</span>
                             @endif
-                            <span class="help-block">{{ __('pages.alliance_name_locked') }}</span>
                         </div>
 
                         {{-- Military Buildings --}}
@@ -125,7 +128,7 @@
                         {{-- Submit --}}
                         <div class="form-group mt-4">
                             <button type="submit" class="btn btn-primary btn-block">
-                                {{ $gameData ? __('pages.update') : __('pages.create') }} {{ __('pages.game_data') }}
+                                {{ $gameData->exists ? __('pages.update') : __('pages.create') }} {{ __('pages.game_data') }}
                             </button>
                         </div>
                     </form>

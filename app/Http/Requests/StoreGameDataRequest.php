@@ -17,16 +17,7 @@ class StoreGameDataRequest extends FormRequest
         $max = config('game.max_level');
 
         return [
-            'alliance' => [
-                'required',
-                'string',
-                'min:1',
-                function ($attribute, $value, $fail) {
-                    if (trim($value) === '') {
-                        $fail('The alliance name cannot be empty or just spaces.');
-                    }
-                },
-            ],
+            'castle_name' => "required|string|min:1",
             'castle_level'   => "required|integer|between:$min,$max",
             'range_level'    => "required|integer|between:$min,$max",
             'stables_level'  => "required|integer|between:$min,$max",

@@ -10,6 +10,7 @@ class GameData extends Model
     use HasFactory;
 
     protected $fillable = [
+        'castle_name',
         'user_id',
         'castle_level',
         'range_level',
@@ -32,6 +33,7 @@ class GameData extends Model
     public static function validationRules()
     {
         return [
+            'castle_name' => 'required|string',
             'castle_level' => 'required|integer|between:45,50',
             'range_level' => 'required|integer|between:45,50',
             'stables_level' => 'required|integer|between:45,50',

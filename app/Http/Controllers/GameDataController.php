@@ -14,16 +14,27 @@ use Illuminate\Validation\ValidationException;
 
 class GameDataController extends Controller
 {
-    public function edit()
+    public function edit(Request $request)
     {
-        $gameData = Auth::user()->gameData ?? new GameData();
-        $alliance = Auth::user()->alliance;
+        $user = Auth::user();
+        if (!$user instanceof \App\Models\User) {
+            Auth::logout();
+            return redirect()->route('login');
+        }
+        
+        if ($request->query('fresh')) {
+            $gameData = new GameData();
+        } else {
+            $selectedCastleId = session('selected_castle');
+            $gameData = $selectedCastleId
+                ? $user->gameData()->find($selectedCastleId)
+                : new GameData();
+        }
 
         $dukeLevels = DukeLevel::all()->keyBy('level');
 
         return view('game-data.edit', [
             'gameData' => $gameData,
-            'alliance' => $alliance ? $alliance->name : null,
             'maxLevel' => config('game.max_level'),
             'minLevel' => config('game.min_level'),
             'dukeLevels' => $dukeLevels,
@@ -40,35 +51,57 @@ class GameDataController extends Controller
         );
 
         $validated = $request->validated();
-
         $user = $request->user();
 
-        // Check if the alliance is already set
-        if ($user->alliance) {
-            // Prevent updating the alliance if already set
-            unset($validated['alliance']);
-        } else {
-            $allianceName = $validated['alliance'];
-            $alliance = \App\Models\Alliance::firstOrCreate(
-                ['name' => $allianceName],
-                ['kingdom_id' => 1] // TODO: get kingdom id
-            );
+        $creatingNew = $request->input('fresh');
 
-            $user->alliance_id = $alliance->id;
-            $user->save();
+        if ($creatingNew || !session('selected_castle')) {
+            $newGameData = $user->gameData()->create($validated);
+            session(['selected_castle' => $newGameData->id]);
+        } else {
+            $gameDataId = session('selected_castle');
+            $gameData = GameData::where('user_id', $user->id)->find($gameDataId);
+
+            if ($gameData) {
+                $gameData->update($validated);
+            } else {
+                $newGameData = $user->gameData()->create($validated);
+                session(['selected_castle' => $newGameData->id]);
+            }
         }
 
-        $this->updateGameData($user, $validated);
-
         return redirect()->route('/')
-            ->with('success', 'Game data updated successfully!');
+            ->with('success', 'Game data saved successfully!');
     }
 
-    private function updateGameData($user, array $validated): void
+
+    public function showCastles()
     {
-        $user->gameData()->updateOrCreate(
-            ['user_id' => $user->id],
-            $validated
-        );
+        $user = Auth::user();
+        $castles = $user->gameData;
+
+        if ($castles->isEmpty()) {
+            return redirect()->route('game-data.edit');
+        }
+
+        return view('game-data.show_castles', ['castles' => $castles]);
+    }
+
+    public function selectCastle(Request $request)
+    {
+        $user = Auth::user();
+        if (!$user instanceof \App\Models\User) {
+            Auth::logout();
+            return redirect()->route('login');
+        }
+
+        $castle = $user->gameData()->find($request->castle_id);
+
+        if ($castle) {
+            session(['selected_castle' => $castle->id]);
+            return redirect()->route('/');
+        }
+
+        return redirect()->route('game-data.show_castles')->withErrors(['castle_id' => 'Invalid castle selected.']);
     }
 }

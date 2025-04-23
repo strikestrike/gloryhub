@@ -109,4 +109,7 @@ return [
     'role' => 'บทบาท',
     'actions' => 'การกระทำ',
     'remember_me' => "จดจำฉันไว้",
+    'select_your_castle' => 'เลือกปราสาทของคุณ',
+    'add_new_castle' => 'เพิ่มปราสาทใหม่',
+    'castle_name' => 'ชื่อปราสาท'
 ];

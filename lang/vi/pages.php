@@ -109,4 +109,7 @@ return [
     'role' => 'Vai trò',
     'actions' => 'Hành động',
     'remember_me' => "Ghi nhớ đăng nhập",
+    'select_your_castle' => 'Chọn lâu đài của bạn',
+    'add_new_castle' => 'Thêm lâu đài mới',
+    'castle_name' => 'Tên lâu đài'
 ];

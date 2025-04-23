@@ -47,10 +47,10 @@
                     </div>
                 </form>
 
-                <p class="mb-1">
+                <p class="my-1">
                     <a href="{{ route('password.request') }}">{{ __('pages.forgot_password') }}</a>
                 </p>
-                <p class="mb-0">
+                <p class="my-1">
                     <a href="{{ route('register') }}" class="text-center">{{ __('pages.register_new_account') }}</a>
                 </p>
             </div>
