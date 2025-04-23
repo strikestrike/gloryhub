@@ -3,7 +3,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h4>__('pages.user_list')</h4>
+            <h4>{{ __('pages.user_list') }}</h4>
         </div>
 
         <div class="card-body">
