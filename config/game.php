@@ -29,10 +29,10 @@ return [
     | Level Range Settings
     |--------------------------------------------------------------------------
     */
-    'min_level' => 46,
+    'min_level' => 45,
     'max_level' => 50,
 
-    'building_levels' => [46, 47, 48, 49, 50],
+    'building_levels' => [45, 46, 47, 48, 49, 50],
     'buildings' => [
         'castle'   => 'Castle',
         'range'    => 'Range',
