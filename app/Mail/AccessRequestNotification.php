@@ -1,7 +1,5 @@
 <?php
 
-<?php
-
 namespace App\Mail;
 
 use Illuminate\Mail\Mailable;
@@ -31,7 +29,7 @@ class AccessRequestNotification extends Mailable
     public function build()
     {
         return $this->subject('New Access Request Submitted')
-                    ->view('emails.access_request_notification')
-                    ->with(['data' => $this->accessRequestData]);
+            ->view('emails.access_request_notification')
+            ->with(['data' => $this->accessRequestData]);
     }
 }
