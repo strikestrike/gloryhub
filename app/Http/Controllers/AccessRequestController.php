@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use AccessRequestNotification;
 use App\Http\Controllers\Controller;
 use App\Mail\AccessApprovedMail;
+use App\Mail\AccessRequestNotification;
 use App\Models\AccessRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
