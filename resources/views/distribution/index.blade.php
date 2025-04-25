@@ -81,12 +81,12 @@
                     const $row = $(this);
                     const type = $row.data('type');
                     const position = $row.data('position');
-                    const userId = $row.find('.award-select').val(); // <- updated class here
+                    const gameDataId = $row.find('.award-select').val(); // <- updated class here
 
-                    if (userId) {
+                    if (gameDataId) {
                         assignments.push({
                             type: type.toLowerCase(),
-                            user_id: userId,
+                            game_data_id: gameDataId,
                             position: parseInt(position),
                         });
                     }
