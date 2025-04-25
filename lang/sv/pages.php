@@ -111,5 +111,9 @@ return [
     'remember_me' => "Kom ihåg mig",
     'select_your_castle' => 'Välj ditt slott',
     'add_new_castle' => 'Lägg till nytt slott',
-    'castle_name' => 'Slottsnamn'
+    'castle_name' => 'Slottsnamn',
+    'Crown' => 'Krona',
+    'Conqueror' => 'Erovrare',
+    'Defender' => 'Försvarare',
+    'Support' => 'Stöd',
 ];

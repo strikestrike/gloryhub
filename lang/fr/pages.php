@@ -112,5 +112,9 @@ return [
     'remember_me' => "Se souvenir de moi",
     'select_your_castle' => 'Sélectionnez votre château',
     'add_new_castle' => 'Ajouter un nouveau château',
-    'castle_name' => 'Nom du château'
+    'castle_name' => 'Nom du château',
+    'Crown' => 'Couronne',
+    'Conqueror' => 'Conquérant',
+    'Defender' => 'Défenseur',
+    'Support' => 'Soutien',
 ];

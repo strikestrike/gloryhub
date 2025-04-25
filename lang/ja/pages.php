@@ -111,5 +111,9 @@ return [
     'remember_me' => "ログイン状態を保持する",
     'select_your_castle' => '自分の城を選択してください',
     'add_new_castle' => '新しい城を追加',
-    'castle_name' => '城の名前'
+    'castle_name' => '城の名前',
+    'Crown' => '王冠',
+    'Conqueror' => '征服者',
+    'Defender' => '守護者',
+    'Support' => 'サポート',
 ];

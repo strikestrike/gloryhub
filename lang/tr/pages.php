@@ -111,5 +111,9 @@ return [
     'remember_me' => "Beni hatırla",
     'select_your_castle' => 'Kalenizi seçin',
     'add_new_castle' => 'Yeni kale ekle',
-    'castle_name' => 'Kale adı'
+    'castle_name' => 'Kale adı',
+    'Crown' => 'Taç',
+    'Conqueror' => 'Fetihçi',
+    'Defender' => 'Savunucu',
+    'Support' => 'Destek',
 ];

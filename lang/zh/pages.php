@@ -111,5 +111,9 @@ return [
     'remember_me' => "记住我",
     'select_your_castle' => '选择你的城堡',
     'add_new_castle' => '添加新城堡',
-    'castle_name' => '城堡名称'
+    'castle_name' => '城堡名称',
+    'Crown' => '皇冠',
+    'Conqueror' => '征服者',
+    'Defender' => '防御者',
+    'Support' => '支援',
 ];

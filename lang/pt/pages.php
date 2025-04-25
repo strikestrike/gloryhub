@@ -111,5 +111,9 @@ return [
     'remember_me' => "Lembrar-me",
     'select_your_castle' => 'Selecione seu castelo',
     'add_new_castle' => 'Adicionar novo castelo',
-    'castle_name' => 'Nome do castelo'
+    'castle_name' => 'Nome do castelo',
+    'Crown' => 'Coroa',
+    'Conqueror' => 'Conquistador',
+    'Defender' => 'Defensor',
+    'Support' => 'Suporte',
 ];

@@ -48,7 +48,7 @@
                         <div class="row">
                             @foreach(config('game.buildings') as $type => $label)
                             <div class="form-group col-md-6">
-                                <label for="{{ $type }}_level">{{ $label }} Level</label>
+                                <label for="{{ $type }}_level">{{ __('pages.' . $type . '_level') }}</label>
                                 <select
                                     id="{{ $type }}_level"
                                     name="{{ $type }}_level"

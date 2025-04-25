@@ -111,5 +111,9 @@ return [
     'remember_me' => "Onthoud mij",
     'select_your_castle' => 'Selecteer je kasteel',
     'add_new_castle' => 'Nieuwe kasteel toevoegen',
-    'castle_name' => 'Kasteelnaam'
+    'castle_name' => 'Kasteelnaam',
+    'Crown' => 'Kroon',
+    'Conqueror' => 'Overwinnaar',
+    'Defender' => 'Beschermer',
+    'Support' => 'Ondersteuning',
 ];

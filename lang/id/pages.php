@@ -111,5 +111,9 @@ return [
     'remember_me' => "Ingat saya",
     'select_your_castle' => 'Pilih kastil Anda',
     'add_new_castle' => 'Ajouter un nouveau château',
-    'castle_name' => 'Nama kastil'
+    'castle_name' => 'Nama kastil',
+    'Crown' => 'Mahkota',
+    'Conqueror' => 'Penakluk',
+    'Defender' => 'Pembela',
+    'Support' => 'Dukungan',
 ];

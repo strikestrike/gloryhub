@@ -110,6 +110,10 @@ return [
     'actions' => 'Aktionen',
     'remember_me' => "Angemeldet bleiben",
     'select_your_castle' => 'Wähle deine Burg',
-    'add_new_castle' =>'Neue Burg hinzufügen',
-    'castle_name' => 'Name der Burg'
+    'add_new_castle' => 'Neue Burg hinzufügen',
+    'castle_name' => 'Name der Burg',
+    'Crown' => 'Krone',
+    'Conqueror' => 'Eroberer',
+    'Defender' => 'Verteidiger',
+    'Support' => 'Unterstützung',
 ];

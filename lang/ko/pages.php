@@ -111,5 +111,9 @@ return [
     'remember_me' => "로그인 상태 유지",
     'select_your_castle' => '당신의 성을 선택하세요',
     'add_new_castle' => '새 성 추가',
-    'castle_name' => '성 이름'
+    'castle_name' => '성 이름',
+    'Crown' => '왕관',
+    'Conqueror' => '정복자',
+    'Defender' => '수호자',
+    'Support' => '지원',
 ];

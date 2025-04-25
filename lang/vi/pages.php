@@ -111,5 +111,9 @@ return [
     'remember_me' => "Ghi nhớ đăng nhập",
     'select_your_castle' => 'Chọn lâu đài của bạn',
     'add_new_castle' => 'Thêm lâu đài mới',
-    'castle_name' => 'Tên lâu đài'
+    'castle_name' => 'Tên lâu đài',
+    'Crown' => 'Vương miện',
+    'Conqueror' => 'Kẻ chinh phục',
+    'Defender' => 'Người bảo vệ',
+    'Support' => 'Hỗ trợ',
 ];

@@ -36,6 +36,13 @@
 
     @section('page_scripts')
     <script>
+        const awardTranslations = {
+            crown: '{{ __("pages.Crown") }}',
+            conqueror: '{{ __("pages.Conqueror") }}',
+            defender: '{{ __("pages.Defender") }}',
+            support: '{{ __("pages.Support") }}',
+        };
+
         function renderTable(data, players) {
             const tbody = $('#distributionTable tbody');
             tbody.empty();
@@ -47,18 +54,18 @@
                             </option>`;
                 }).join('');
 
-
+                const awardTypeText = awardTranslations[row.award_type.toLowerCase()] || row.award_type;
                 tbody.append(`
-            <tr class="award-row" data-type="${row.type}" data-position="${row.position}">
-                <td>${row.award_type} #${row.position + 1}</td>
-                <td>
-                    <select class="form-control award-select" {{ !(auth()->user()->isSuperAdmin() || auth()->user()->isKing()) ? 'disabled' : '' }}>
-                        <option value="">-- {{ __('pages.select_player') }} --</option>
-                        ${options}
-                    </select>
-                </td>
-            </tr>
-        `);
+                    <tr class="award-row" data-type="${row.type}" data-position="${row.position}">
+                        <td>${awardTypeText} #${row.position + 1}</td>
+                        <td>
+                            <select class="form-control award-select" {{ !(auth()->user()->isSuperAdmin() || auth()->user()->isKing()) ? 'disabled' : '' }}>
+                                <option value="">-- {{ __('pages.select_player') }} --</option>
+                                ${options}
+                            </select>
+                        </td>
+                    </tr>
+                `);
             });
         }
 
