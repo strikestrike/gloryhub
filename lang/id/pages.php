@@ -116,4 +116,7 @@ return [
     'Conqueror' => 'Penakluk',
     'Defender' => 'Pembela',
     'Support' => 'Dukungan',
+    'allow' => 'Izinkan Akses',
+    'disallow' => 'Larangkan Akses',
+    'failed_toggle_access' => 'Gagal mengubah akses pengguna',
 ];

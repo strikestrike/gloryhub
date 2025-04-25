@@ -16,6 +16,7 @@ class User extends Authenticatable
         'password',
         'role',
         'alliance_id',
+        'is_active',
     ];
 
     protected $casts = [
@@ -55,5 +56,10 @@ class User extends Authenticatable
     public function isPlayer()
     {
         return $this->role === 'player';
+    }
+
+    public function isActive()
+    {
+        return $this->is_active === 1;
     }
 }

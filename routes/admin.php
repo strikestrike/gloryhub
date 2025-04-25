@@ -69,4 +69,5 @@ Route::middleware(['auth', 'superAdmin'])->group(function () {
     Route::get('/users/data', [AdminUserController::class, 'getData'])->name('users.data');
     Route::post('/users/{id}/reset-password', [AdminUserController::class, 'resetPassword'])->name('users.reset-password');
     Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('users.delete');
+    Route::post('/users/{id}/toggle-access', [AdminUserController::class, 'toggleAccess'])->name('users.toggle-access');
 });

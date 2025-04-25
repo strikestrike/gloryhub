@@ -116,4 +116,7 @@ return [
     'Conqueror' => 'Eroberer',
     'Defender' => 'Verteidiger',
     'Support' => 'Unterstützung',
+    'allow' => 'Zugriff erlauben',
+    'disallow' => 'Zugriff verweigern',
+    'failed_toggle_access' => 'Fehler beim Umschalten des Benutzerzugriffs',
 ];

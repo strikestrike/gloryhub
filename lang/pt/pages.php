@@ -116,4 +116,7 @@ return [
     'Conqueror' => 'Conquistador',
     'Defender' => 'Defensor',
     'Support' => 'Suporte',
+    'allow' => 'Permitir Acesso',
+    'disallow' => 'Negar Acesso',
+    'failed_toggle_access' => 'Falha ao alternar o acesso do usuário',
 ];

@@ -116,4 +116,7 @@ return [
     'Conqueror' => 'الفاتح',
     'Defender' => 'المدافع',
     'Support' => 'الدعم',
+    'allow' => 'السماح بالوصول',
+    'disallow' => 'رفض الوصول',
+    'failed_toggle_access' => 'فشل في تبديل وصول المستخدم',
 ];

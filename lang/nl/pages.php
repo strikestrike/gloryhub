@@ -116,4 +116,7 @@ return [
     'Conqueror' => 'Overwinnaar',
     'Defender' => 'Beschermer',
     'Support' => 'Ondersteuning',
+    'allow' => 'Toegang toestaan',
+    'disallow' => 'Toegang weigeren',
+    'failed_toggle_access' => 'Fout bij het schakelen van gebruikersrechten',
 ];

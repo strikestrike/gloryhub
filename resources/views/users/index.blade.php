@@ -62,9 +62,11 @@
                         orderable: false,
                         searchable: false,
                         render: function(id, type, row, meta) {
+                            const accessText = row.is_active ? "{{ __('pages.disallow') }}" : "{{ __('pages.allow') }}";
                             return `
                             <button class="btn btn-warning btn-sm btn-reset" data-id="${id}">{{ __('global.reset_password') }}</button>
                             <button class="btn btn-danger btn-sm btn-delete ml-2" data-id="${id}">{{ __('pages.delete') }}</button>
+                            <button class="btn btn-info btn-sm btn-toggle-access ml-2" data-id="${id}">${accessText}</button>
                         `;
                         }
                     }
@@ -108,6 +110,20 @@
                     });
                 }
             });
+
+            $(document).on('click', '.btn-toggle-access', function() {
+                const userId = $(this).data('id');
+
+                $.post("{{ url('/users') }}/" + userId + "/toggle-access", {
+                    _token: '{{ csrf_token() }}'
+                }).done(function(response) {
+                    alert(response.message);
+                    dtUsers.ajax.reload();
+                }).fail(function() {
+                    alert("{{ __('pages.failed_toggle_access') }}");
+                });
+            });
+
         });
     </script>
     @endsection

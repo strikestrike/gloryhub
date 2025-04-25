@@ -116,4 +116,7 @@ return [
     'Conqueror' => 'Conquistatore',
     'Defender' => 'Difensore',
     'Support' => 'Supporto',
+    'allow' => 'Consenti l\'accesso',
+    'disallow' => 'Non consentire l\'accesso',
+    'failed_toggle_access' => 'Impossibile alternare l\'accesso dell\'utente',
 ];

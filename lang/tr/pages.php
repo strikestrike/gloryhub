@@ -116,4 +116,7 @@ return [
     'Conqueror' => 'Fetihçi',
     'Defender' => 'Savunucu',
     'Support' => 'Destek',
+    'allow' => 'Erişime izin ver',
+    'disallow' => 'Erişimi yasakla',
+    'failed_toggle_access' => 'Kullanıcı erişimi geçişi başarısız',
 ];

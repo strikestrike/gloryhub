@@ -117,4 +117,7 @@ return [
     'Conqueror' => 'Conquérant',
     'Defender' => 'Défenseur',
     'Support' => 'Soutien',
+    'allow' => 'Autoriser l\'accès',
+    'disallow' => 'Interdire l\'accès',
+    'failed_toggle_access' => 'Échec du basculement de l\'accès de l\'utilisateur',
 ];

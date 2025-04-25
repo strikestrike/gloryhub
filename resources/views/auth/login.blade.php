@@ -9,7 +9,11 @@
             </div>
             <div class="card-body">
                 <p class="login-box-msg">{{ __('pages.sign_in_prompt') }}</p>
-
+                @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
                     <div class="input-group mb-3">

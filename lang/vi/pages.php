@@ -116,4 +116,7 @@ return [
     'Conqueror' => 'Kẻ chinh phục',
     'Defender' => 'Người bảo vệ',
     'Support' => 'Hỗ trợ',
+    'allow' => 'Cho phép truy cập',
+    'disallow' => 'Không cho phép truy cập',
+    'failed_toggle_access' => 'Lỗi khi chuyển đổi quyền truy cập của người dùng',
 ];

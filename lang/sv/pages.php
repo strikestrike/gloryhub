@@ -116,4 +116,7 @@ return [
     'Conqueror' => 'Erovrare',
     'Defender' => 'Försvarare',
     'Support' => 'Stöd',
+    'allow' => 'Tillåt åtkomst',
+    'disallow' => 'Neka åtkomst',
+    'failed_toggle_access' => 'Misslyckades att växla användartillgång',
 ];

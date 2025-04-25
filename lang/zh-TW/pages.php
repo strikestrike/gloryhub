@@ -116,4 +116,7 @@ return [
     'Conqueror' => '征服者',
     'Defender' => '防禦者',
     'Support' => '支援',
+    'allow' => '允許訪問',
+    'disallow' => '禁止訪問',
+    'failed_toggle_access' => '切換用戶訪問失敗',
 ];
