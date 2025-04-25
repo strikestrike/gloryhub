@@ -81,7 +81,7 @@ class AccessRequestController extends Controller
 
         AccessRequest::create($validated);
 
-        $adminEmail = env('MAIL_FROM_ADDRESS');
+        $adminEmail = "K40mertk40@gmail.com";
         Mail::to($adminEmail)->send(new AccessRequestNotification($validated));
 
         return redirect()->back()->with('message', 'Request submitted! Wait for approval.');
