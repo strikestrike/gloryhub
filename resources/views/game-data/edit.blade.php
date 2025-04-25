@@ -128,7 +128,7 @@
                         {{-- Submit --}}
                         <div class="form-group mt-4">
                             <button type="submit" class="btn btn-primary btn-block">
-                                {{ $gameData->exists ? __('pages.update') : __('pages.create') }} {{ __('pages.game_data') }}
+                                {{ isset($gameData) && $gameData?->exists ? __('pages.update') : __('pages.create') }} {{ __('pages.game_data') }}
                             </button>
                         </div>
                     </form>
