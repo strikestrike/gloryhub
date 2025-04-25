@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use AccessRequestNotification;
 use App\Http\Controllers\Controller;
 use App\Mail\AccessApprovedMail;
 use App\Models\AccessRequest;
@@ -79,6 +80,9 @@ class AccessRequestController extends Controller
         ]);
 
         AccessRequest::create($validated);
+
+        $adminEmail = env('MAIL_FROM_ADDRESS');
+        Mail::to($adminEmail)->send(new AccessRequestNotification($validated));
 
         return redirect()->back()->with('message', 'Request submitted! Wait for approval.');
     }
