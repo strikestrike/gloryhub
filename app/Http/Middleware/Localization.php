@@ -19,9 +19,7 @@ class Localization
      */
     public function handle(Request $request, Closure $next)
     {
-        Log::info('Localization Middleware: ' . session()->get('locale'));
         if (session()->has('locale')) {
-            Log::info('Localization Middleware: local: ' . session()->get('locale'));
             App::setLocale(session()->get('locale'));
         }
         return $next($request);

@@ -12,6 +12,7 @@ class AwardAssignment extends Model
 
     protected $fillable = [
         'user_id',
+        'game_data_id',
         'type',
         'kingdom_level',
         'position',
@@ -25,7 +26,7 @@ class AwardAssignment extends Model
     public static function validationRules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
+            'game_data_id' => 'required|exists:game_data,id',
             'type' => 'required|in:' . implode(',', self::getTypes()),
             'kingdom_level' => 'required|integer|min:' . config('game.kingdom_levels.min') . '|max:' . config('game.kingdom_levels.max'),
             'position' => 'required|integer|min:0',
@@ -41,6 +42,11 @@ class AwardAssignment extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function gameData(): BelongsTo
+    {
+        return $this->belongsTo(GameData::class);
     }
 
     public function assigner(): BelongsTo

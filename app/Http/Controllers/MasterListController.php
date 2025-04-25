@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccessRequest;
 use App\Models\DukeLevel;
 use App\Models\GameData;
 use App\Services\BuildingNeedService;
@@ -26,20 +27,27 @@ class MasterListController extends Controller
         }
 
         $query = GameData::select([
-                'user_id',
-                'castle_level',
-                'range_level',
-                'stables_level',
-                'barracks_level',
-                'duke_badges',
-                'target_building',
-                'target_level',
-                'updated_at',
-            ])
-            ->with('user:id,name');
+            'user_id',
+            'castle_name',
+            'castle_level',
+            'range_level',
+            'stables_level',
+            'barracks_level',
+            'duke_badges',
+            'target_building',
+            'target_level',
+            'updated_at',
+        ])
+            ->with('user:id,name,email');
 
         $dataTable = DataTables::of($query)
             ->addColumn('name', fn($member) => $member->user->name)
+            ->addColumn('alliance', function ($member) {
+                return AccessRequest::where('email', $member->user->email)
+                    ->where('status', 'approved')
+                    ->first()
+                    ->alliance ?? null;
+            })
             ->addColumn('overall_level', function ($member) {
                 return min([
                     $member->castle_level,

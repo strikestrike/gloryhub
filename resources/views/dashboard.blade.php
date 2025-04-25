@@ -37,7 +37,7 @@
                     <p>{{ __('pages.total_players') }}</p>
                 </div>
                 <div class="icon"><i class="fas fa-users"></i></div>
-                <a href="{{ route('alliance') }}" class="small-box-footer">
+                <a href="{{ route('master-list') }}" class="small-box-footer">
                     {{ __('pages.view_players') }} <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>

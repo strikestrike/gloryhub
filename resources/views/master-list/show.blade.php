@@ -86,7 +86,10 @@
                 },
                 columns: [{
                         data: 'name',
-                        name: 'name'
+                        name: 'name',
+                        render: function(data, type, row) {
+                            return row.castle_name + ' - ' + row.alliance;
+                        }
                     },
                     {
                         data: 'overall_level',

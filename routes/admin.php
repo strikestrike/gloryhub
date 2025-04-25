@@ -28,6 +28,7 @@ Route::post('/questionnaire', [AccessRequestController::class, 'submitForm'])->n
 Route::get('/register', function () {
     return redirect('/questionnaire');
 })->name('register');
+Route::post('/register', [RegisteredUserController::class, 'store'])->name('register.store');
 Route::get('/register/{token}', [RegisteredUserController::class, 'showRegistrationFormFromToken'])->middleware('check.registration.token')->name('register.from_token');
 
 Route::middleware(['auth'])->group(function () {

@@ -42,8 +42,11 @@
 
             data.forEach((row) => {
                 const options = players.map(player => {
-                    return `<option value="${player.user_id}" ${player.user_id === row.user_id ? 'selected' : ''}>${player.name} (${player.total_needed})</option>`;
+                    return `<option value="${player.game_data_id}" ${player.game_data_id === row.game_data_id ? 'selected' : ''}>
+                                ${player.castle_name} - ${player.alliance ?? ''} (${player.total_needed})
+                            </option>`;
                 }).join('');
+
 
                 tbody.append(`
             <tr class="award-row" data-type="${row.type}" data-position="${row.position}">

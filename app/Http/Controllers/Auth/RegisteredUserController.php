@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -33,7 +34,7 @@ class RegisteredUserController extends Controller
             return redirect()->route('login')->withErrors(['token' => 'Invalid or expired registration token.']);
         }
 
-        if ($invitation->expires_at && Carbon::parse($invitation->expires_at)->isPast()) {
+        if ($invitation->token_expires_at && Carbon::parse($invitation->token_expires_at)->isPast()) {
             return redirect()->route('login')->withErrors(['token' => 'This registration token has expired.']);
         }
 
@@ -58,20 +59,21 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'player_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'token' => ['required', 'string'],
         ]);
 
         $invitation = AccessRequest::where('token', $request->token)->first();
 
-        if (!$invitation || $invitation->is_used || ($invitation->expires_at && Carbon::parse($invitation->expires_at)->isPast())) {
+        if (!$invitation || $invitation->is_used || ($invitation->token_expires_at && Carbon::parse($invitation->token_expires_at)->isPast())) {
+            Log::info("invitation is invalid: ", $invitation);
             return redirect()->route('login')->withErrors(['token' => 'Invalid, expired, or already used token.']);
         }
 
         $user = User::create([
-            'name' => $request->name,
+            'name' => $request->player_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
