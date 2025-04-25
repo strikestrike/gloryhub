@@ -64,6 +64,7 @@ Route::middleware(['auth', 'superAdmin'])->group(function () {
     Route::get('/access-requests-data', [AccessRequestController::class, 'getData'])->name('access-requests.data');
     Route::post('/access-requests/{id}/approve', [AccessRequestController::class, 'approve']);
     Route::post('/access-requests/{id}/deny', [AccessRequestController::class, 'deny']);
+    Route::delete('/access-requests/{id}', [AccessRequestController::class, 'destroy'])->name('access-requests.delete');
     Route::get('/users', [AdminUserController::class, 'index'])->name('users');
     Route::get('/users/data', [AdminUserController::class, 'getData'])->name('users.data');
     Route::post('/users/{id}/reset-password', [AdminUserController::class, 'resetPassword'])->name('users.reset-password');

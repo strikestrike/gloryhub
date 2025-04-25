@@ -55,7 +55,15 @@ class AccessRequestController extends Controller
         AccessRequest::findOrFail($id)->update(['status' => 'denied']);
         return back()->with('error', 'Access denied.');
     }
-    
+
+    public function destroy($id)
+    {
+        $accessRequest = AccessRequest::findOrFail($id);
+        $accessRequest->delete();
+
+        return response()->json(['message' => 'Access request deleted successfully']);
+    }
+
     public function showForm()
     {
         return view('access_requests.form');

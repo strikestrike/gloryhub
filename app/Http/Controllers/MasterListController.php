@@ -69,6 +69,9 @@ class MasterListController extends Controller
             },
         ];
 
-        return $this->applyCustomSorting(request(), $dataTable, $customSortMap)->make(true);
+        $data = $this->applyCustomSorting(request(), $dataTable, $customSortMap)->make(true)->getData(true);
+        $data['data'] = collect($data['data'])->sortBy('total_needed')->values()->all();
+
+        return response()->json($data);
     }
 }

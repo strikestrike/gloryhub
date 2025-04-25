@@ -64,6 +64,7 @@
                             return `
                                 <button class="btn btn-success approve-btn" data-id="${row.id}">Approve</button>
                                 <button class="btn btn-danger deny-btn" data-id="${row.id}">Deny</button>
+                                <button class="btn btn-outline-danger delete-btn" data-id="${row.id}">Delete</button>
                             `;
                         }
                     },
@@ -103,6 +104,27 @@
                     alert('Error denying the request.');
                 });
             });
+
+            $(document).on('click', '.delete-btn', function() {
+                let id = $(this).data('id');
+
+                if (confirm('Are you sure you want to delete this access request?')) {
+                    $.ajax({
+                        url: "{{ url('/access-requests') }}/" + id,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            table.ajax.reload();
+                        },
+                        error: function() {
+                            alert('Error deleting the request.');
+                        }
+                    });
+                }
+            });
+
         });
     </script>
     @endsection
