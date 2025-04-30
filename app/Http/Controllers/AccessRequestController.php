@@ -76,7 +76,19 @@ class AccessRequestController extends Controller
             'kingdom' => 'required|string',
             'alliance' => 'required|string',
             'player_name' => 'required|string',
-            'email' => 'required|email|unique:access_requests,email,status,pending',
+            'email' => [
+                'required',
+                'email',
+                function ($attribute, $value, $fail) {
+                    $existingRequest = AccessRequest::where('email', $value)
+                        ->where('status', 'pending')
+                        ->first();
+
+                    if ($existingRequest) {
+                        $fail('This email address is already in use for a pending request.');
+                    }
+                }
+            ],
         ]);
 
         AccessRequest::create($validated);
