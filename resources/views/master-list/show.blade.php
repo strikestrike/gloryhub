@@ -125,6 +125,11 @@
                         name: 'total_needed',
                         orderable: false,
                     },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at',
+                        visible: true
+                    },
                 ],
                 order: [
                     [1, 'desc']
