@@ -80,6 +80,14 @@ class AccessRequestController extends Controller
                 'required',
                 'email',
                 function ($attribute, $value, $fail) {
+                    $existingApprovedRequest = AccessRequest::where('email', $value)
+                        ->where('status', 'approved')
+                        ->first();
+
+                    if ($existingApprovedRequest) {
+                        $fail('This email address already has an approved request.');
+                    }
+
                     $existingRequest = AccessRequest::where('email', $value)
                         ->where('status', 'pending')
                         ->first();
@@ -87,6 +95,8 @@ class AccessRequestController extends Controller
                     if ($existingRequest) {
                         $fail('This email address is already in use for a pending request.');
                     }
+
+                    AccessRequest::where('email', $value)->delete();
                 }
             ],
         ]);
