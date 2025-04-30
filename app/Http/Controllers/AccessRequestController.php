@@ -76,12 +76,12 @@ class AccessRequestController extends Controller
             'kingdom' => 'required|string',
             'alliance' => 'required|string',
             'player_name' => 'required|string',
-            'email' => 'required|email|unique:access_requests,email',
+            'email' => 'required|email|unique:access_requests,email,status,pending',
         ]);
 
         AccessRequest::create($validated);
 
-        $adminEmail = "K40mertk40@gmail.com";
+        $adminEmail = "k44notifications@gmail.com";
         Mail::to($adminEmail)->send(new AccessRequestNotification($validated));
 
         return redirect()->back()->with('message', 'Request submitted! Wait for approval.');
