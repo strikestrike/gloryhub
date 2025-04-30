@@ -64,6 +64,7 @@
                         <th>{{ __('pages.barracks_level') }}</th>
                         <th>{{ __('pages.duke_badges') }}</th>
                         <th>{{ __('pages.duke_needed') }}</th>
+                        <th>{{ __('pages.updated_at') }}</th>
                     </tr>
                 </thead>
                 <tbody>
