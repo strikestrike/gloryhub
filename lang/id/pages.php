@@ -119,4 +119,6 @@ return [
     'allow' => 'Izinkan Akses',
     'disallow' => 'Larangkan Akses',
     'failed_toggle_access' => 'Gagal mengubah akses pengguna',
+    'my_castles' => 'Kastil Saya',
+    'no_castles_found' => 'Tidak ada kastil yang ditemukan.',
 ];

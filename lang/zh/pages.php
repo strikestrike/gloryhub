@@ -119,4 +119,6 @@ return [
     'allow' => '允许访问',
     'disallow' => '禁止访问',
     'failed_toggle_access' => '切换用户访问失败',
+    'my_castles' => '我的城堡',
+    'no_castles_found' => '未找到城堡。',
 ];

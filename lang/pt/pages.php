@@ -119,4 +119,6 @@ return [
     'allow' => 'Permitir Acesso',
     'disallow' => 'Negar Acesso',
     'failed_toggle_access' => 'Falha ao alternar o acesso do usuário',
+    'my_castles' => 'Meus Castelos',
+    'no_castles_found' => 'Nenhum castelo encontrado.',
 ];

@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'game-data-check'])->group(function () {
     Route::get('/', [ProfileController::class, 'dashboard'])->name('/');
+    Route::delete('/castles/{castle}', [ProfileController::class, 'destroyCastle'])->name('castles.destroy');
     Route::post('/app-name/update', [ProfileController::class, 'updateAppName'])->name('app-name.update');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

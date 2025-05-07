@@ -70,6 +70,7 @@ class ProfileController extends Controller
         $kingdomLevels = config('game.kingdom_levels.max', 0);
         $unassignedAwards = AwardAssignment::whereNull('user_id')->count();
         $totalPlayers = User::whereIn('role', ['player', 'king'])->count();
+        $playerCastles = GameData::where('user_id', $user->id)->get();
 
         return view('dashboard', [
             'totalAwards'       => $totalAwards,
@@ -82,7 +83,37 @@ class ProfileController extends Controller
             'rangeNeeded'       => $rangeNeeded,
             'totalNeeded'       => $totalNeeded,
             'castleName'        => $userGameData?->castle_name ?? '',
+            'playerCastles'     => $playerCastles,
         ]);
+    }
+
+    public function destroyCastle($id)
+    {
+        $castle = GameData::findOrFail($id);
+
+        if ($castle->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $castle->delete();
+
+        $remainingCastles = GameData::where('user_id', Auth::id())->get();
+        $selectedCastleId = session('selected_castle');
+
+        if ($remainingCastles->count() === 1) {
+            $newCastle = $remainingCastles->first();
+            session(['selected_castle' => $newCastle->id]);
+
+            return redirect()->route('/')->with('status', 'Castle deleted. New castle selected.');
+        }
+
+        if ($selectedCastleId == $id) {
+            session()->forget('selected_castle');
+
+            return redirect()->route('game-data.show_castles')->with('status', 'Castle deleted. Please select a new castle.');
+        }
+
+        return redirect()->route('/')->with('status', 'Castle deleted successfully.');
     }
 
     /**

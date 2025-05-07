@@ -119,4 +119,6 @@ return [
     'allow' => 'Toegang toestaan',
     'disallow' => 'Toegang weigeren',
     'failed_toggle_access' => 'Fout bij het schakelen van gebruikersrechten',
+    'my_castles' => 'Mijn Kastelen',
+    'no_castles_found' => 'Geen kastelen gevonden.',
 ];

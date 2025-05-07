@@ -119,4 +119,6 @@ return [
     'allow' => 'Cho phép truy cập',
     'disallow' => 'Không cho phép truy cập',
     'failed_toggle_access' => 'Lỗi khi chuyển đổi quyền truy cập của người dùng',
+    'my_castles' => 'Lâu đài của tôi',
+    'no_castles_found' => 'Không tìm thấy lâu đài nào.',
 ];

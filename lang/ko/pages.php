@@ -119,4 +119,6 @@ return [
     'allow' => '액세스 허용',
     'disallow' => '액세스 거부',
     'failed_toggle_access' => '사용자 액세스를 전환하지 못했습니다',
+    'my_castles' => '내 성',
+    'no_castles_found' => '성을 찾을 수 없습니다.',
 ];

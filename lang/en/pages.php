@@ -119,4 +119,6 @@ return [
     'allow' => 'Allow Access',
     'disallow' => 'Disallow Access',
     'failed_toggle_access' => 'Failed to toggle user access',
+    'my_castles' => 'My Castles',
+    'no_castles_found' => 'No castles found.',
 ];

@@ -26,7 +26,7 @@ class GameDataMiddleware
             return $next($request);
         }
 
-        if (!$user->gameData) {
+        if (!$user->gameData || $user->gameData->count() === 0) {
             return redirect()->route('game-data.edit');
         }
 

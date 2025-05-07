@@ -120,4 +120,6 @@ return [
     'allow' => 'Autoriser l\'accès',
     'disallow' => 'Interdire l\'accès',
     'failed_toggle_access' => 'Échec du basculement de l\'accès de l\'utilisateur',
+    'my_castles' => 'Mes Châteaux',
+    'no_castles_found' => 'Aucun château trouvé.',
 ];

@@ -119,4 +119,6 @@ return [
     'allow' => 'Erişime izin ver',
     'disallow' => 'Erişimi yasakla',
     'failed_toggle_access' => 'Kullanıcı erişimi geçişi başarısız',
+    'my_castles' => 'Kalelerim',
+    'no_castles_found' => 'Kale bulunamadı.',
 ];

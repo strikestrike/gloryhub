@@ -119,4 +119,6 @@ return [
     'allow' => 'Tillåt åtkomst',
     'disallow' => 'Neka åtkomst',
     'failed_toggle_access' => 'Misslyckades att växla användartillgång',
+    'my_castles' => 'Mina Slott',
+    'no_castles_found' => 'Inga slott hittades.',
 ];

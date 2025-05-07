@@ -119,4 +119,6 @@ return [
     'allow' => 'アクセスを許可',
     'disallow' => 'アクセスを拒否',
     'failed_toggle_access' => 'ユーザーアクセスの切り替えに失敗しました',
+    'my_castles' => '私の城',
+    'no_castles_found' => '城が見つかりませんでした。',
 ];

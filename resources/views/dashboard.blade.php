@@ -101,6 +101,42 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-12">
+            <h4>{{ __('pages.my_castles') }}</h4>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>{{ __('pages.castle_name') }}</th>
+                        <th>{{ __('pages.level') }}</th>
+                        <th>{{ __('pages.actions') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($playerCastles as $castle)
+                    <tr>
+                        <td>{{ $castle->castle_name }}</td>
+                        <td>{{ $castle->castle_level }}</td>
+                        <td>
+                            <form action="{{ route('castles.destroy', $castle->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this castle?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash-alt"></i> {{ __('pages.delete') }}
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @if($playerCastles->isEmpty())
+                    <tr>
+                        <td colspan="3" class="text-center">{{ __('pages.no_castles_found') }}</td>
+                    </tr>
+                    @endif
+                </tbody>
+            </table>
+        </div>
+    </div>
     @endif
 
     <!-- Edit App Name Modal -->

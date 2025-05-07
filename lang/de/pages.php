@@ -119,4 +119,6 @@ return [
     'allow' => 'Zugriff erlauben',
     'disallow' => 'Zugriff verweigern',
     'failed_toggle_access' => 'Fehler beim Umschalten des Benutzerzugriffs',
+    'my_castles' => 'Meine Burgen',
+    'no_castles_found' => 'Keine Burgen gefunden.',
 ];

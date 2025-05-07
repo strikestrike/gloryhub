@@ -119,4 +119,6 @@ return [
     'allow' => 'السماح بالوصول',
     'disallow' => 'رفض الوصول',
     'failed_toggle_access' => 'فشل في تبديل وصول المستخدم',
+    'my_castles' => 'قلاعي',
+    'no_castles_found' => 'لم يتم العثور على أي قلاع.',
 ];

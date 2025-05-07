@@ -119,4 +119,6 @@ return [
     'allow' => 'Zezwól na dostęp',
     'disallow' => 'Zabroń dostępu',
     'failed_toggle_access' => 'Nie udało się przełączyć dostępu użytkownika',
+    'my_castles' => 'Moje Zamki',
+    'no_castles_found' => 'Nie znaleziono zamków.',
 ];
