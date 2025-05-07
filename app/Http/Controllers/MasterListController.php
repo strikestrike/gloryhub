@@ -26,7 +26,7 @@ class MasterListController extends Controller
             return redirect()->route('login');
         }
 
-        $query = GameData::select([
+        $records = GameData::select([
             'user_id',
             'castle_name',
             'castle_level',
@@ -38,40 +38,43 @@ class MasterListController extends Controller
             'target_level',
             'updated_at',
         ])
-            ->with('user:id,name,email');
+            ->with('user:id,name,email,role')
+            ->whereHas('user', function ($q) {
+                $q->whereIn('role', ['player', 'king']);
+            })->get();
 
-        $dataTable = DataTables::of($query)
-            ->addColumn('name', fn($member) => $member->user->name)
-            ->addColumn('alliance', function ($member) {
-                return AccessRequest::where('email', $member->user->email)
-                    ->where('status', 'approved')
-                    ->first()
-                    ->alliance ?? null;
-            })
-            ->addColumn('overall_level', function ($member) {
-                return min([
+        $data = $records->map(function ($member) use ($buildingNeedService) {
+            return [
+                'user_id' => $member->user_id,
+                'name' => $member->user->name,
+                'email' => $member->user->email,
+                'castle_name' => $member->castle_name,
+                'castle_level' => $member->castle_level,
+                'range_level' => $member->range_level,
+                'stables_level' => $member->stables_level,
+                'barracks_level' => $member->barracks_level,
+                'duke_badges' => $member->duke_badges,
+                'target_building' => $member->target_building,
+                'target_level' => $member->target_level,
+                'updated_at' => $member->updated_at->format('Y-m-d H:i:s'),
+                'alliance' => AccessRequest::where('email', $member->user->email)->where('status', 'approved')->first()->alliance ?? null,
+                'overall_level' => min([
                     $member->castle_level,
                     $member->range_level,
                     $member->stables_level,
                     $member->barracks_level,
-                ]);
-            })
-            ->addColumn('name', fn($member) => $member->user->name)
-            ->addColumn('castle_needed', fn($m) => ($m->target_building !== 'castle' && $m->target_building !== 'overall') ? 0 : $buildingNeedService->getBuildingLevelNeed('castle', $m->castle_level, $m->target_level))
-            ->addColumn('stables_needed', fn($m) => ($m->target_building !== 'stables' && $m->target_building !== 'overall') ? 0 : $buildingNeedService->getBuildingLevelNeed('stables', $m->stables_level, $m->target_level))
-            ->addColumn('barracks_needed', fn($m) => ($m->target_building !== 'barracks' && $m->target_building !== 'overall') ? 0 : $buildingNeedService->getBuildingLevelNeed('barracks', $m->barracks_level, $m->target_level))
-            ->addColumn('range_needed', fn($m) => ($m->target_building !== 'range' && $m->target_building !== 'overall') ? 0 : $buildingNeedService->getBuildingLevelNeed('range', $m->range_level, $m->target_level))
-            ->addColumn('total_needed', fn($m) => $buildingNeedService->calculateTotalNeeded($m, $m->target_level));
+                ]),
+                'castle_needed' => in_array($member->target_building, ['castle', 'overall']) ? $buildingNeedService->getBuildingLevelNeed('castle', $member->castle_level, $member->target_level) : 0,
+                'stables_needed' => in_array($member->target_building, ['stables', 'overall']) ? $buildingNeedService->getBuildingLevelNeed('stables', $member->stables_level, $member->target_level) : 0,
+                'barracks_needed' => in_array($member->target_building, ['barracks', 'overall']) ? $buildingNeedService->getBuildingLevelNeed('barracks', $member->barracks_level, $member->target_level) : 0,
+                'range_needed' => in_array($member->target_building, ['range', 'overall']) ? $buildingNeedService->getBuildingLevelNeed('range', $member->range_level, $member->target_level) : 0,
+                'total_needed' => $buildingNeedService->calculateTotalNeeded($member, $member->target_level),
+            ];
+        });
 
-        $customSortMap = [
-            'overall_level' => function ($query, $dir) {
-                $query->orderByRaw("LEAST(castle_level, range_level, stables_level, barracks_level) {$dir}");
-            },
-        ];
+        // Sort entire collection by total_needed BEFORE pagination
+        $sorted = $data->sortBy('total_needed')->values();
 
-        $data = $this->applyCustomSorting(request(), $dataTable, $customSortMap)->make(true)->getData(true);
-        $data['data'] = collect($data['data'])->sortBy('total_needed')->values()->all();
-
-        return response()->json($data);
+        return DataTables::of($sorted)->make(true);
     }
 }
